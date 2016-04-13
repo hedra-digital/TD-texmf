@@ -4,11 +4,11 @@
 # Caso não tenha, a senha deverá ser fornecida no momento da execução.
 
 
-echo "1 -- Atualizando TEXMF/AMAZON-WIDBOOK em PRODUÇÂO..................................."
-server_address="184.73.101.57"
-server_username="ubuntu"
-repo_dir="/home/ubuntu/texmf/tex"
-ssh $server_username@$server_address "cd $repo_dir; git pull origin master"
+#echo "1 -- Atualizando TEXMF/AMAZON-WIDBOOK em PRODUÇÂO..................................."
+#server_address="184.73.101.57"
+#server_username="ubuntu"
+#repo_dir="/home/ubuntu/texmf/tex"
+#ssh $server_username@$server_address "cd $repo_dir; git pull origin master"
 
 
 #echo "1 -- Atualizando TEMPLANTES LATEX em PRODUÇÂO..................................."
@@ -37,8 +37,8 @@ ssh $server_username@$server_address "cd $repo_dir; git pull origin master"
 #repo_dir="/home/deploy/texmf/tex"
 #ssh $server_username@$server_address "cd $repo_dir; git pull origin td-producao-texmf"
 #
-#echo "6 -- Atualizando TEXMF em STAGING (deploy)..................................."
-#server_address="staging.tipografiadigital.com.br"
-#server_username="deploy"
-#repo_dir="/home/deploy/texmf/tex"
-#ssh $server_username@$server_address "cd $repo_dir; git pull origin td-producao-texmf"
+echo "6 -- Atualizando TEXMF em STAGING (deploy)..................................."
+server_address="staging.livrodaclasse.com.br"
+server_username="deploy"
+repo_dir="/home/deploy/texmf/tex"
+ssh $server_username@$server_address "cd $repo_dir; git pull origin master"
