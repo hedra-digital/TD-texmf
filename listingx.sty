@@ -1,0 +1,16 @@
+\RequirePackage{tabularx}
+
+\newcommand\listaxsize{\tiny}
+\newcommand\listaxh{\bfseries}
+\newcommand\listaxl{\upshape}
+
+\newcommand\listax[2]{%
+  \bgroup
+  \scantokens{%
+    \catcode`\,\active\def,{\\ &}
+    \noindent%
+    \listaxsize
+    \begin{tabularx}{\textwidth}{@{\hspace{-.8mm}}l@{}@{\quad}>{\listaxl\arraybackslash}X}
+      \listaxh\ #1 & #2
+    \end{tabularx}}
+    \egroup}

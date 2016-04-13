@@ -1,0 +1,103 @@
+% Contadores %  LaTeX Manual, 853
+\renewcommand\thesection{\roman{section}}
+\renewcommand\theparagraph{\arabic{paragraph}}
+
+\newcommand\hedratoc{
+	\def\contentsname{sum\'ario}
+	\tableofcontents
+}
+
+\renewcommand\tableofcontents{%
+    \begingroup\pagestyle{empty}
+    \renewcommand\chapter{\if@openright\cleardoublepage\else\clearpage\fi
+                        \thispagestyle{empty}%
+                        \global\@topnum\z@
+                        \@afterindentfalse
+                        \secdef\@chapter\@schapter}
+    \if@twocolumn
+      \@restonecoltrue\onecolumn
+    \else
+      \@restonecolfalse
+    \fi
+    \chapter*{\contentsname
+    	\@mkboth{}{}}% Modifiquei apenas o comando \MakeUppercase
+    \@starttoc{toc}%
+    \if@restonecol\twocolumn\fi
+    \clearpage\endgroup
+}
+
+
+\renewcommand*\l@part[2]{%
+  \ifnum \c@tocdepth >-2\relax
+    \addpenalty{-\@highpenalty}%
+    \addvspace{1em \@plus\p@}%
+    \setlength\@tempdima{3em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      {\leavevmode
+       \bfseries \scshape #1\hfil \hb@xt@\@pnumwidth{\hss #2}}\par
+       \nobreak
+         \global\@nobreaktrue
+         \everypar{\global\@nobreakfalse\everypar{}}%
+    \endgroup
+  \fi}
+
+\renewcommand*\l@chapter[2]{%
+  \ifnum \c@tocdepth >\m@ne
+    \addpenalty{-\@highpenalty}%
+    \vskip .3em \@plus\p@
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode 
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+      \penalty\@highpenalty
+    \endgroup
+  \fi}
+
+\renewcommand*\l@section{\@dottedtocline{1}{0em}{3em}}
+\renewcommand*\l@paragraph{\@dottedtocline{4}{3em}{3em}}
+\renewcommand*\l@subparagraph{\@dottedtocline{4}{1.5em}{1em}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\@dottedtocline#1#2#3#4#5{%
+  \ifnum #1>\c@tocdepth \else
+    \vskip \z@ \@plus.2\p@
+    {\footnotesize\leftskip #2\relax \rightskip \@tocrmarg \parfillskip -\rightskip
+     \parindent #2\relax\@afterindenttrue
+     \interlinepenalty\@M
+     \leavevmode
+     \@tempdima #3\relax
+     \advance\leftskip \@tempdima \null\nobreak\hskip -\leftskip
+     {#4}\nobreak
+     \leaders\hbox{$\m@th
+        \mkern \@dotsep mu\hbox{.}\mkern \@dotsep
+        mu$}\hfill
+     \nobreak
+     \hb@xt@\@pnumwidth{\hfil\normalfont \normalcolor #5}%
+     \par}%
+  \fi}
+
+\DeclareOption{chapterdot}{
+\renewcommand*\l@chapter[2]{%
+  \ifnum \c@tocdepth >\m@ne
+    \addpenalty{-\@highpenalty}%
+    \vskip .3em \@plus\p@
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode 
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\dotfill\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+      \penalty\@highpenalty
+    \endgroup
+  \fi}
+}
+
+\ProcessOptions

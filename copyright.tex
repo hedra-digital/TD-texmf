@@ -1,0 +1,67 @@
+\begin{center}
+\newcommand{\linhalayout}[2]{{\tiny\textbf{#1}\quad#2 —}}
+\newcommand{\logoinclude}[1]{\includegraphics[width=.3\textwidth]{#1}}
+\newcommand{\linha}[2]{\ifdef{#2}{\linhalayout{#1}{#2}}{}}
+\ifdef{\organizador}{{\small {\organizador} (\textit{org.})} \mbox\\ }{}
+\ifdef{\tradutor}{{\small {\tradutor} (\textit{trad.})}\mbox{}\\ }{}
+\ifdef{\introdutor}{{\small {\introdutor} (\textit{intr.})} \mbox{}\\ }{}
+.\\
+.\\
+.\\
+.\\
+— \linha{copyright}{\copyrightlivro}
+\linha{tradução©}{\copyrighttraducao}
+\linhalayout{edição©}{Hedra \ifdef{\ano}{\ano}{\the\year}}
+\linha{organização©}{\copyrightorganizacao}
+\linha{introdução©}{\copyrightintroducao}
+\linha{ilustração©}{\copyrightilustracao}
+\linha{título original}{\titulooriginal}
+\linha{edição consultada}{\edicaoconsultada}
+\linha{primeira edição}{\primeiraedicao}
+\linha{agradecimentos}{\agradecimentos}
+\linha{indicação}{\indicacao}
+\linha{ISBN}{\ISBN}\bigskip 
+\linha{edição}{\edicao}
+\linha{coedição}{\coedicao}
+\linha{assistência editorial}{\assistencia}
+\linha{revisão}{\revisao}
+\linha{preparação}{\preparacao}
+\linha{capa}{\capa}
+\linha{imagem da capa}{\imagemcapa}
+.\\
+.\\
+.\\
+.\\
+.\\
+.\\
+.\\
+.\\
+
+\logoinclude{logo.eps}\ \ São Paulo \the\year{}
+\end{center}
+
+\ % empty paragraph becomes empty line
+
+\ % empty paragraph becomes empty line
+
+\begingroup \tiny
+\textit{Direitos reservados em l\'ingua\\ portuguesa somente para o Brasil}\\\vfill
+%
+\textsc{editora hedra ltda.}\\
+R.~Fradique Coutinho, 1139 (subsolo)\\
+05416--011 São Paulo \textsc{sp} Brasil\\
+Telefone/Fax +55 11 3097 8304\\\smallskip
+editora@hedra.com.br\\
+www.hedra.com.br\\
+\ %
+
+Foi feito o depósito legal.\\\endgroup
+
+
+\chapter*{Resumo}
+
+{\footnotesize
+\ifdef{\sobreobra}{\sobreobra}{\textbf{Sobre a obra} \lipsum[1]}
+\ifdef{\sobreautor}{\sobreautor}{\textbf{Sobre o autor} \lipsum[2]}
+\ifdef{\sobretradutor}{\sobretradutor}{\relax}
+\ifdef{\sobreorganizador}{\sobreorganizador}{\relax}}

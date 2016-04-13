@@ -1,0 +1,533 @@
+\RequirePackage{fancyhdr}
+\RequirePackage{nextpage}
+
+%\ifthenelse{\isundefined{\@author}}{Autor}{Aoo}
+
+\newcommand{\eh}[1]{\headsize\scshape\MakeLowercase{#1}}	%estilo do header
+\newcommand{\hedramarkboth}[2]{\markboth{\eh{#1}}{\eh{#2}}}
+\headsep1ex
+
+\fancypagestyle{hedrabolso}{%
+\renewcommand\headrulewidth{0pt}
+  \fancyhf{}%
+  \fancyhead[LE]{\paginaesq}%
+  \fancyhead[RE]{\leftmark}%
+  \fancyhead[LO]{\rightmark}%
+  \fancyhead[RO]{\paginadir}%
+}
+
+\fancypagestyle{part}{%
+\renewcommand\headrulewidth{0pt}
+  \fancyhf{}%
+  \fancyhead[LE]{\paginaesq}%
+  \fancyhead[RE]{\eh{\@title}}%
+  \fancyhead[LO]{\eh{\@author}}%
+  \fancyhead[RO]{\paginadir}%
+}
+
+\fancypagestyle{plain}{%
+  \renewcommand\headrulewidth{0pt}
+  \fancyhf{}%
+  \fancyhead[LE]{\paginaesq}%
+  \fancyhead[RE]{}%
+  \fancyhead[LO]{}%
+  \fancyhead[RO]{\paginadir}%
+}
+\pagestyle{hedrabolso}
+
+\renewcommand{\chaptermark}[1]{\markboth{\eh{#1}}{\eh{\@author}}}
+\renewcommand{\sectionmark}[1]{} % Faz com que as seções sejam desativadas nos cabeços (J: 09/ago/08)
+
+%%%%%%%%%%%%%%%%%%
+% Tamanhos novos %
+%%%%%%%%%%%%%%%%%%
+
+% cabeço
+\newcommand{\headsize}{\small} %Jorge: cabeço
+
+% nomes dos dados técnicos
+\newcommand{\titlesize}{\@setfontsize\titlesize\@viipt{7}}
+% fonte dos nomes dos dados técnicos
+\newcommand{\titlefont}{\fontencoding{T1}\fontfamily{pcr}\selectfont\bfseries}
+
+% dados tecnicos gerais
+\newcommand{\valuesize}{\@setfontsize\valuesize\@xpt{10}}
+
+% página de resumos. ;)
+\newcommand{\abstractsize}{\@setfontsize\abstractsize\@ixpt{9}}
+
+% tamanho da paginação:
+\newcommand{\pagingsize}{\@setfontsize\valuesize\@xpt{10}}
+
+% tamanho do logo
+\newcommand{\logosize}{\@setfontsize\logosize\@xviipt{22}}
+
+
+
+% Blackpage
+\newenvironment{blackpages}{
+	\pagecolor{black}
+	\color{white}
+	\@paginapretatrue
+}{
+	\newpage
+	\vfil
+	\newpage
+
+
+	\color{black}
+	\@paginapretafalse
+	\newpage
+	\pagecolor{white}
+}
+
+
+\newcommand\interno@reguapagina{
+	\raisebox{-1mm}{\rule{0.1mm}{4mm}}
+}
+
+\newcommand\paginadir{%
+%	% os comentários aqui servem para o \paginaesq também:
+%	% falo que vou usar cm para posicionar a imagem
+	\setlength{\unitlength}{1mm}%
+%	% faço uma imagem de tamanho zero
+	\makebox{
+	\begin{picture}(0,0)%
+		\put(12,-5.4){%
+		\makebox(0,0)[r]{%
+			\begin{tabular}{@{}l @{ }r @{}}
+				\interno@reguapagina &
+				\makebox[5mm][r]{\pagingsize\textbf{\thepage}}
+			\end{tabular}%
+		}}%
+	\end{picture}%
+	}
+}
+
+\newcommand\paginaesq{
+	\setlength{\unitlength}{1mm}
+	\begin{picture}(0,0)
+		\put(-4,-5.4){\makebox(0,0)[r]{
+			\begin{tabular}{@{}l@{ }r@{}}
+				\makebox[5mm][l]{\pagingsize\textbf{\thepage}} &
+				\interno@reguapagina
+			\end{tabular}
+		}}
+	\end{picture}
+}
+
+% usado para controlar quando dentro de páginas pretas
+\newif\if@paginapreta
+
+\let\oldnewpage\clearpage
+\renewcommand\clearpage{
+	\oldnewpage
+
+	\if@paginapreta
+		\pagecolor{black}
+	\else
+		\pagecolor{white}
+	\fi
+
+	\thispagestyle{empty}
+}
+
+\let\oldpagebreak\pagebreak
+\renewcommand\pagebreak{
+	\oldpagebreak
+
+	\if@paginapreta
+		\pagecolor{black}
+		\thispagestyle{empty}
+	\else
+		\pagecolor{white}
+	\fi
+}
+
+% comando interno para fazer traços:
+\newcommand\interno@traco{
+	\rule{1.5mm}{0.1mm}   %Jorge: tracinho
+}
+
+% comando usado para fazer os traços "aleatórios":
+\newcommand\traco[2]{
+	\makebox[#1][r]{
+		\raisebox{#2}[0cm][0cm]{
+			\interno@traco
+		}
+	}
+}
+
+%%%%%%%%%%%%%%%
+% Fancy Table %
+%%%%%%%%%%%%%%%
+
+% o ambiente propriamente dito
+\newenvironment{fancytable}[1]{
+	\newif\if@primeiralinha%
+	\@primeiralinhafalse%
+	% bigline:
+	\newcommand\bigline[3]{%
+		\if@primeiralinha%
+			% se for a primeira linha não faz nada
+		\else%
+			% se não for a primeira linha quebra.
+			\\%
+		\fi%
+		{\titlefont\titlesize##1} & {\titlefont\titlesize##2} &%
+		\begin{minipage}[t]{#1}%
+%			\setlength\lineskip{0mm}%
+%			\setlength\parskip{0mm}%
+			\valuesize##3%
+		\end{minipage}%
+	}%
+	% putline:
+	\newcommand\putline[2]{%
+		\bigline{##1}{\interno@traco}{\begin{flushleft}##2\strut\end{flushleft}}%
+	}%
+	\begin{tabular*}{0mm}{@{}r@{}l@{}l@{}}
+} % begin{...}
+{
+	\end{tabular*}
+} % end{...}
+
+
+%%%%%%%%%%%%%%
+% \maketitle %
+%%%%%%%%%%%%%%
+
+% Comandos para poder ativar a opção "noauthor"
+\newcommand{\AuthorCathegory}{Autor}
+\newcommand{\FirstpageAuthorCathegory}{\putline{\AuthorCathegory}{\textsc{\@author}}}
+
+\renewcommand\maketitle[1][]{
+	\begin{titlepage}
+		\thispagestyle{empty}
+		
+		% desenha os tracinhos:
+		\setlength{\unitlength}{\baselineskip}%
+		\begin{picture}(0,0)
+			\put(0,-10){\makebox(0,0)[l]{\interno@traco}}
+			\put(0,-11){\makebox(0,0)[l]{\interno@traco}}
+			\put(0,-13){\makebox(0,0)[l]{\interno@traco}}
+			\put(0,-16){\makebox(0,0)[l]{\interno@traco}}
+			\put(0,-17){\makebox(0,0)[l]{\interno@traco}}
+			\put(0,-20){\makebox(0,0)[l]{\interno@traco}}
+			\put(0,-21){\makebox(0,0)[l]{\interno@traco}}
+			\put(0,-22){\makebox(0,0)[l]{\interno@traco}}
+			\put(0,-28){\makebox(0,0)[l]{\interno@traco}}
+			\put(0,-29){\makebox(0,0)[l]{\interno@traco}}
+			\put(0,-30){\makebox(0,0)[l]{\interno@traco}}
+		\end{picture}
+
+        % livro do professor
+        \ifthenelse{\equal{#1}{livrodoprofessor}}{%
+            \begingroup
+                \begin{picture}(0,0)
+                    \setlength\unitlength{12pt}
+                    \fontencoding{U}\fontfamily{cmss}\selectfont
+                    \put(9,-27){%
+                    \begin{tikzpicture}
+                        \draw[black, very thick] (0,0) circle (2);
+                    \end{tikzpicture}}
+                    \put(3.94,-22.6){\vbox{\fontsize{14pt}{18pt}\bfseries\centering Livro\\ do\\ professor}}
+                    \put(3.94,-25.3){\vbox{\fontsize{12pt}{14pt}\bfseries\centering venda\\ proibida}}
+                \end{picture}
+            \endgroup%
+        }{}
+
+		% algumas linhas...
+		\vspace*{\stretch{1}}
+		{
+		\hspace*{3.5cm}\begin{fancytable}{4cm}
+			\bigline{}{}{\includegraphics[width=5.68mm, height=12.351mm]{pecinha.pdf}\vspace{6mm}}
+			\FirstpageAuthorCathegory
+%			\putline{Autor}{\textsc{\@author}}
+			\putline{T\'itulo}{\textsc{\@title}}
+		\end{fancytable}\hspace*{\stretch{1}}
+		}
+		\vspace*{\stretch{3}}
+	\end{titlepage}
+}
+
+
+
+
+%%%%%%%%%%%%
+% TechPage %
+%%%%%%%%%%%%
+
+\newenvironment{techpage}[1]{%
+	% isbn:
+	\newcommand\isbninterno[1]{%
+		\colorbox{white}{%
+			\begin{pspicture}(-1mm,-2mm)(1.8cm,1.6cm)%
+				\psbarcode[linecolor=black]{##1}{includetext guardwhitespace textsize=7 width=0.65 height=0.6}{ean13}%
+			\end{pspicture}\\
+		}%
+	}%
+	\newcommand\fichainterna[3]{%
+		\raisebox{1cm}{%
+		\framebox{%
+		\begin{minipage}[l]{3.5cm}%
+		\begin{spacing}{0.5}{%
+			\ttfamily\tiny ##1 \vspace{2ex} \\ ##2\hspace{\stretch{1}}##3%
+		}\end{spacing}%
+		\end{minipage}%
+		}}%
+	}%
+	\newcommand\isbn[1]{%
+		\putline{}{%
+			\vspace{1pt}%
+			\isbninterno{##1}%
+			\vspace{1pt}%
+		}%
+	}%
+	\newcommand\ficha[3]{%
+		\putline{Ficha Catalogr\'afica}{%
+			\vspace{1pt}%
+			\fichainterna{##1}{##2}{##3}%
+			\vspace{1pt}%
+		}%
+	}%
+	\newcommand\isbneficha[4]{%
+		\putline{}{%
+			\vspace{1pt}%
+			{%1.8 e 2.1
+				\hfill\parbox{1.8cm}{\isbninterno{##1}}\hspace{1pt}\hfill%
+				\hfill\parbox{2.1cm}{\fichainterna{##2}{##3}{##4}}\hfill%
+			}%
+			\vspace{1pt}%
+		}%
+	}%
+	% direitos:
+	\newcommand\direitos{%
+		\bigline{}{}{Direitos reservados em l\'ingua\\ portuguesa somente para o Brasil}%
+	}%
+	% dadoseiditora:
+	\newcommand\dadoseditora{%
+		\bigline{}{}{}%
+		\bigline{}{}{\textsc{editora hedra ltda.}}%
+		\putline{Endere\c co}{%
+			\mbox{R. Fradique Coutinho, 1139 (subsolo)}\\
+			05416-011 S\~ao Paulo \textsc{sp} Brasil%
+		}
+		\putline{Telefone/Fax}{+55 11 3097 8304}%
+		\putline{E-mail}{editora@hedra.com.br}%
+		\putline{Site}{www.hedra.com.br}%
+	}%
+	% depositolegal:
+	\newcommand\depositolegal{%
+		\bigline{}{}{Foi feito o dep\'osito legal.}%
+	}%
+%
+%
+	\setlength{\unitlength}{\baselineskip}%
+	\noindent\begin{picture}(0,0)
+		\put(0,-12){\makebox(0,0)[l]{\interno@traco}}
+		\put(0,-13){\makebox(0,0)[l]{\interno@traco}}
+		\put(0,-14){\makebox(0,0)[l]{\interno@traco}}
+		\put(0,-15){\makebox(0,0)[l]{\interno@traco}}
+		\put(0,-16){\makebox(0,0)[l]{\interno@traco}}
+		\put(0,-24){\makebox(0,0)[l]{\interno@traco}}
+		\put(0,-30){\makebox(0,0)[l]{\interno@traco}}
+		\put(0,-32){\makebox(0,0)[l]{\interno@traco}}
+		\put(0,-33){\makebox(0,0)[l]{\interno@traco}}
+		\put(0,-34){\makebox(0,0)[l]{\interno@traco}}
+	\end{picture}\nopagebreak[6]\\
+%	\vspace*{\stretch{1}}%
+	% começamos o ambiente.
+	\begin{fancytable}{#1}%
+}{\end{fancytable}}
+
+
+%%%%%%%%%%%%%%%%
+% Frontispício %
+%%%%%%%%%%%%%%%%
+\newcommand{\ThirdpageAuthorCathegory}{%
+		\bigline{\AuthorCathegory}{%
+			\setlength{\unitlength}{\baselineskip}%
+			\begin{picture}(0,0)(0,0)%
+				\put(0,0){\makebox(0,0)[l]{\interno@traco}}%
+				\put(0,3){\makebox(0,0)[l]{\interno@traco}}%
+				\put(0,4){\makebox(0,0)[l]{\interno@traco}}%
+			\end{picture}
+		}{\textsc{\@author}\strut}
+}
+
+\newenvironment{frontispiciopage}[2]{
+	\cleartooddpage{\thispagestyle{empty}}
+	\thispagestyle{empty}
+	\def\@ano{#2}
+	\vspace*{\stretch{1}}
+	\hspace*{\stretch{0.1}}%
+	\begin{fancytable}{#1}%
+% Para eliminar o Autor
+	\ThirdpageAuthorCathegory
+		\putline{T\'itulo}{\textsc{\@title}}
+}{
+		\putline{S\~ao Paulo}{\the\year\vspace{5mm}}
+		\bigline{}{}{
+			\setlength{\unitlength}{1mm}%
+			\hspace{1mm}\begin{picture}(25,25)%
+			%\color{white}
+			  \put(0, 0){\line(1, 0){2}}
+			  \put(0, 0){\line(0, 1){2}}
+			  \put(23, 0){\line(1, 0){2}}
+			  \put(25, 0){\line(0, 1){2}}
+			  \put(0, 25){\line(1, 0){2}}
+			  \put(0, 23){\line(0, 1){2}}
+			  \put(23, 25){\line(1, 0){2}}
+			  \put(25, 23){\line(0, 1){2}}
+				\put(5.8,13){\makebox(0,0)[l]{\fontencoding{OT1}\fontfamily{ptm}\selectfont\logosize{}hedra}}%
+
+			\end{picture}
+		}
+		\bigline{}{%
+			\setlength{\unitlength}{\baselineskip}%
+			\begin{picture}(0,0)(0,0)%
+				\put(0,1){\makebox(0,0)[l]{\interno@traco}}%
+				\put(0,2.5){\makebox(0,0)[l]{\interno@traco}}%
+				\put(0,3.5){\makebox(0,0)[l]{\interno@traco}}%
+				\put(0,5){\makebox(0,0)[l]{\interno@traco}}%
+				\put(0,8.7){\makebox(0,0)[l]{\interno@traco}}%
+			\end{picture}%
+		}{%
+			\setlength{\unitlength}{\baselineskip}%
+			\hspace{\stretch{1}}\begin{picture}(0,0)(-4,0)%
+				\put(-4,1){\makebox(0,0)[l]{\interno@traco}}%
+				%
+				\put(-4,3){\makebox(0,0)[l]{\interno@traco}}%
+				\put(-4,4){\makebox(0,0)[l]{\interno@traco}}%
+				%
+				\put(-4,10){\makebox(0,0)[l]{\interno@traco}}%
+				\put(-4,11){\makebox(0,0)[l]{\interno@traco}}%
+				\put(-4,12){\makebox(0,0)[l]{\interno@traco}}%
+				%
+				\put(-4,16){\makebox(0,0)[l]{\interno@traco}}%
+				\put(-4,17){\makebox(0,0)[l]{\interno@traco}}%
+				%
+				\put(-4,21){\makebox(0,0)[l]{\interno@traco}}%
+				%
+				\put(-4,23){\makebox(0,0)[l]{\interno@traco}}%
+				\put(-4,24){\makebox(0,0)[l]{\interno@traco}}%
+			\end{picture}%
+		}
+				
+	\end{fancytable}\hspace*{\stretch{2}}
+}
+
+\newcommand\frontispicio[1]{
+	\begin{frontispiciopage}{2cm}{#1}
+	\end{frontispiciopage}
+}
+
+
+%%%%%%%%%%
+% Resumo %
+%%%%%%%%%%
+
+\newenvironment{resumopage}{%
+	\pagebreak%
+	\setlength{\unitlength}{3mm}%
+	\noindent\begin{picture}(0,0)(0,13)%
+		\put(-1,0){\makebox(0,0)[l]{\interno@traco}}%
+		\put(-1,-1){\makebox(0,0)[l]{\interno@traco}}%
+		\put(-1,-8){\makebox(0,0)[l]{\interno@traco}}%
+		\put(-1,-9){\makebox(0,0)[l]{\interno@traco}}%
+		\put(-1,-15){\makebox(0,0)[l]{\interno@traco}}%
+		\put(-1,-36){\makebox(0,0)[l]{\interno@traco}}%
+		\put(-1,-37){\makebox(0,0)[l]{\interno@traco}}%
+	\end{picture}\\%
+	\vspace*{\stretch{1}}%
+	\begin{flushleft}%
+	\footnotesize%
+	\begin{list}{}{
+		\setlength\leftmargin{4mm}	% identação do texto principal em
+						% relação à margem da 'página'
+		\setlength\rightmargin{0mm}
+		\setlength\labelwidth{4mm}	% tamanho "esperado" da caixa de rótulo
+						% define também o recuo usado
+%
+%		\setlength\listparindent{3mm}	% tamanho da identação dos parágrafos
+						% dentro do ítem
+%
+		\setlength\labelsep{0mm}	% espaço entre rótulo e descrição
+		\setlength\parsep{0mm}		% espaço entre parágrafos de um item
+		\setlength\itemsep{1mm}		% espaço entre items
+		\setlength\lineskip{0mm}	% espaçamento entre linhas
+				}
+	\renewcommand\makelabel[1]{
+		\textbf{##1}
+	}
+	\abstractsize
+}{%
+	\pagebreak
+	\end{list}%
+	\end{flushleft}%
+}
+
+
+%%%%%%%%%%%%%
+% \colofon %
+%%%%%%%%%%%%%
+
+
+\newcommand\colofon[1]{%
+	\thispagestyle{empty}%
+	\vspace*{1cm}%
+	\centering{\bfseries\scshape\footnotesize #1}\nobreak%
+}
+
+
+\DeclareOption{largetext}{
+\renewcommand\paginadir{%
+%	% os comentários aqui servem para o \paginaesq também:
+%	% falo que vou usar cm para posicionar a imagem
+	\setlength{\unitlength}{1mm}%
+%	% faço uma imagem de tamanho zero
+	\makebox{
+	\begin{picture}(0,0)%
+		\put(11,-7.2){%
+		\makebox(0,0)[r]{%
+			\begin{tabular}{@{}l @{ }r @{}}
+				\interno@reguapagina &
+				\makebox[5mm][r]{\pagingsize\textbf{\thepage}}
+			\end{tabular}%
+		}}%
+	\end{picture}%
+	}
+}
+
+\renewcommand\paginaesq{
+	\setlength{\unitlength}{1mm}
+	\begin{picture}(0,0)
+		\put(-4,-7.2){\makebox(0,0)[r]{
+			\begin{tabular}{@{}l@{ }r@{}}
+				\makebox[5mm][l]{\pagingsize\textbf{\thepage}} &
+				\interno@reguapagina
+			\end{tabular}
+		}}
+	\end{picture}
+}
+}
+
+\DeclareOption{noauthor}{
+%\newcommand{\authorcathegory}{Autor}
+\renewcommand{\FirstpageAuthorCathegory}{}
+\renewcommand{\ThirdpageAuthorCathegory}{}
+}
+
+
+\DeclareOption{autores}{
+\renewcommand{\AuthorCathegory}{Autores}
+}
+
+\DeclareOption{autora}{
+\renewcommand{\AuthorCathegory}{Autora}
+}
+
+
+\ProcessOptions
+
+

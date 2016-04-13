@@ -1,0 +1,221 @@
+\RequirePackage{textcase}
+\RequirePackage{etoolbox}
+
+% Subtículo e autor (OBS: Este comando obedece o padrão disposto pelo comando \chapterspecial, em tipografia.
+\newcommand{\subtitulo}[1]{\NoCaseChange{\textnormal{\break\Large\itshape#1}}}
+\newcommand{\autorcapitulo}[1]{\hfill
+  \begin{minipage}{.6\textwidth}
+  \begin{flushright}{\itshape #1}\end{flushright}
+  \end{minipage}
+\bigskip\par}
+
+\makeheadstyles{estilo}{%
+% book changes
+\renewcommand*{\booknamefont}{\LARGE}
+\renewcommand*{\booknumfont}{\LARGE}
+\renewcommand*{\booktitlefont}{\LARGE}
+\renewcommand*{\midbookskip}{\par\vskip 2\onelineskip}%
+% part changes
+\renewcommand*{\partnamefont}{\Large}
+\renewcommand*{\partnumfont}{\Large}
+\renewcommand*{\parttitlefont}{\centering\Large\ifdef{\fontespecial}{\fontespecial}{}}
+\renewcommand*{\midpartskip}{\par\vskip 2\onelineskip}%
+% chapter
+\setlength{\beforechapskip}{0mm}%
+\setlength{\afterchapskip}{22mm\@plus2mm\@minus1mm}%
+\renewcommand*{\chapnamefont}{\centering\Large}%
+\renewcommand*{\chapnumfont}{\centering\Large}%
+\renewcommand*{\chaptitlefont}{\Large\ifdef{\fontespecial}{\fontespecial}{}}%
+% section
+\setbeforesecskip{1.2\onelineskip}%
+\setaftersecskip{.35\onelineskip}%
+\setsecheadstyle{\large\baselineskip=.7\baselineskip\centering\scshape\MakeTextLowercase}%
+% subsection
+\setsubsecheadstyle{\MakeTextLowercase{}\centering\small\scshape\MakeTextLowercase}%
+% subsubsection
+\setbeforesubsubsecskip{1\onelineskip}%
+\setaftersubsubsecskip{.2\onelineskip}%
+\setsubsubsecheadstyle{\centering\itshape}%
+% paragraph
+\setbeforeparaskip{1\onelineskip}%
+\setafterparaskip{.08\onelineskip}%
+\setparaheadstyle{\bfseries\small}%
+}
+
+
+\makepagestyle{estilo}
+\makeheadposition{estilo}{flushright}{flushleft}{}{}
+\makepsmarks{estilo}{%
+  \nouppercaseheads
+  \createmark{chapter}{both}{nonumber}{}{}
+  \createmark{section}{right}{nonumber}{}{}
+  \createplainmark{toc}{both}{\contentsname}
+  \createplainmark{lof}{both}{\listfigurename}
+  \createplainmark{lot}{both}{\listtablename}
+  \createplainmark{bib}{both}{\bibname}
+  \createplainmark{index}{both}{\indexname}
+  \createplainmark{glossary}{both}{\glossaryname}}
+
+% Cabeços e rodapés 
+\makeevenhead{estilo}{}{\scshape\ifdef{\titcabeco}{\titcabeco}{\MakeLowercase{\begingroup\def\break{}\titulo\endgroup}}}{}
+\makeoddhead{estilo}{}{\scshape\MakeLowercase{\leftmark}}{}
+\makeevenfoot{estilo}{}{\footnotesize\thepage}{}{}
+\makeoddfoot{estilo}{}{\footnotesize\thepage}{}{}
+%%\makeheadrule{estilo}{\textwidth}{\normalrulethickness}
+%
+%
+\renewcommand{\cftchapternumwidth}{4em}
+\renewcommand{\cftchapterleader}{\dotfill}
+\renewcommand{\cftparskip}{-1ex}
+\renewcommand{\cftpartfont}{\Large\bfseries}
+\renewcommand{\cftpartformatpnum}{\Large\bfseries}
+\renewcommand{\cftchapterfont}{\large}
+\renewcommand{\cftchapterformatpnum}{\large}
+\renewcommand{\cftbeforesectionskip}{.8em}
+%
+\makeevenfoot{plain}{}{\footnotesize\thepage}{}{}
+\makeoddfoot{plain}{}{\footnotesize\thepage}{}{}
+
+\makeevenhead{myheadings}{\footnotesize\thepage}{}{\scshape\MakeLowercase{\leftmark}}
+\makeoddhead{myheadings}{\scshape\MakeLowercase{\rightmark}}{}{\footnotesize\thepage}
+\makeheadrule{myheadings}{\textwidth}{\normalrulethickness}
+
+\renewcommand{\thefigure}{\arabic{figure}}
+
+\@addtoreset{chapter}{part}
+\copypagestyle{part}{empty}
+\copypagestyle{chapter}{plain}
+\epigraphtextposition{flushleft}
+\epigraphtextposition{flushleft}
+\epigraphsourceposition{flushright}
+\epigraphfontsize{\footnotesize}
+\setlength{\epigraphrule}{0pt}
+\setlength{\epigraphwidth}{.7\textwidth}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% simples %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareOption{simples}{%
+% Cabeços e rodapés 
+\makeevenhead{estilo}{}{}{}
+\makeoddhead{estilo}{}{}{}
+\makeevenfoot{estilo}{\footnotesize\thepage}{}{}
+\makeoddfoot{estilo}{}{}{\footnotesize\thepage}
+%%\makeheadrule{estilo}{\textwidth}{\normalrulethickness}
+\pagestyle{estilo}
+\headstyles{estilo}
+}
+
+% bruno %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareOption{bruno}{%
+\makeheadstyles{estilo}{%
+% book changes
+\renewcommand*{\booknamefont}{\bfseries\Huge}
+\renewcommand*{\booknumfont}{\bfseries\Huge}
+\renewcommand*{\booktitlefont}{\bfseries\Huge}
+\renewcommand*{\midbookskip}{\par\vskip 2\onelineskip}%
+% part changes
+\renewcommand*{\partnamefont}{\huge}
+\renewcommand*{\partnumfont}{\huge}
+\renewcommand*{\parttitlefont}{\centering\huge}
+\renewcommand*{\midpartskip}{\par\vskip 2\onelineskip}%
+% chapter
+\setlength{\beforechapskip}{0mm}%
+\setlength{\afterchapskip}{22mm\@plus2mm\@minus1mm}%
+\renewcommand*{\chapnamefont}{\centering\huge}%
+\renewcommand*{\chapnumfont}{\centering\huge}%
+\renewcommand*{\chaptitlefont}{\centering\huge}%
+% section
+\setbeforesecskip{1\onelineskip}%
+\setaftersecskip{.5\onelineskip}%
+\setsecheadstyle{\MakeTextLowercase\Large\scshape}%
+% subsection
+\setbeforesubsecskip{2.4\onelineskip}%
+\setaftersubsecskip{.1\onelineskip}%
+\setsubsecheadstyle{\centering\large\itshape}%
+% subsubsection
+\setbeforesubsubsecskip{1.2\onelineskip}%
+\setaftersubsubsecskip{.2\onelineskip}%
+\setsubsubsecheadstyle{\centering\small\itshape}%
+% paragraph
+\setbeforeparaskip{1.6\onelineskip}%
+\setafterparaskip{.08\onelineskip}%
+\setparaheadstyle{\centering\small}%
+}
+% Cabeços e rodapés 
+\makeevenhead{estilo}{}{\scshape\MakeLowercase{\titulo}}{}
+\makeoddhead{estilo}{}{\scshape\MakeLowercase{\leftmark}}{}
+\makeevenfoot{estilo}{}{\footnotesize\thepage}{}{}
+\makeoddfoot{estilo}{}{\footnotesize\thepage}{}{}
+%%\makeheadrule{estilo}{\textwidth}{\normalrulethickness}
+}
+
+
+\DeclareOption{artigo}{%
+\makepagestyle{artigo}
+\makeoddfoot{artigo}{}{\tiny \scshape editora hedra \adforn{52} são paulo \adforn{52} brasil}{}
+\makeevenfoot{artigo}{}{\tiny \scshape rua fradique coutinho, 1139 (subs.) \adforn{52} vila madalena \adforn 05416-011 \adforn{52} hedra.com.br}{}
+\pagestyle{artigo}
+}
+
+\DeclareOption{semcabeco}{
+  \makeevenhead{estilo}{}{}{}
+  \makeoddhead{estilo}{}{}{}
+}
+
+\DeclareOption{baruch}{%
+\pagestyle{estilo}
+\headstyles{estilo}}
+
+\DeclareOption{light}{%
+% part changes
+\renewcommand*{\partnamefont}{\Large}
+\renewcommand*{\partnumfont}{\Large}
+\renewcommand*{\parttitlefont}{\Large\ifdef{\fontespecial}{\fontespecial}{}}
+\renewcommand*{\midpartskip}{\par\vskip 2\onelineskip}%
+% chapter
+\setlength{\beforechapskip}{0mm}%
+\setlength{\afterchapskip}{22mm\@plus2mm\@minus1mm}%
+\renewcommand*{\chapnamefont}{\Large}%
+\renewcommand*{\chapnumfont}{\Large}%
+\renewcommand*{\chaptitlefont}{\Large\ifdef{\fontespecial}{\fontespecial}{}}%
+% section
+\setbeforesecskip{1.2\onelineskip}%
+\setaftersecskip{.35\onelineskip}%
+\setsecheadstyle{\large\baselineskip=.7\baselineskip\centering\scshape\MakeTextLowercase}%
+% subsection
+\setbeforesubsecskip{1\onelineskip}%
+\setaftersubsecskip{.1\onelineskip}%
+\setsubsecheadstyle{\MakeTextLowercase{}\centering\small\scshape}%
+% subsubsection
+\setbeforesubsubsecskip{1\onelineskip}%
+\setaftersubsubsecskip{.2\onelineskip}%
+\setsubsubsecheadstyle{\centering\itshape}%
+% paragraph
+\setbeforeparaskip{0pt}%
+\setafterparaskip{0pt}%
+\setparaheadstyle{\bfseries\small}%
+\pagestyle{estilo}
+\headstyles{estilo}}
+
+
+\DeclareOption{notasemlinha}{\AtBeginDocument{\renewcommand{\footnoterule}{\vfill
+  \kern-3\p@
+  \hrule width .4\columnwidth height 0pt
+  \kern 2.6\p@}}}
+
+\DeclareOption{notalinhalonga}{\AtBeginDocument{\renewcommand{\footnoterule}{\vfill
+  \kern-3\p@
+  \hrule width \textwidth height .2pt
+  \kern 2.6\p@}}}
+
+\ProcessOptions%
+
+

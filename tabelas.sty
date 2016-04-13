@@ -1,0 +1,26 @@
+\RequirePackage{xtab}
+%\RequirePackage{tabularx}
+\RequirePackage{enumitem}
+%\RequirePackage{longtable}
+\RequirePackage{ctable}
+
+% xtab
+\xentrystretch{0}
+
+% enumitem
+\setlist[itemize,1]{label={$\triangleright$},leftmargin=5pt,itemsep=0pt}
+
+
+\newcommand{\spcell}[2][c]{%
+  \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
+%\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} % < Usually a good idea
+%\setlist[itemize]{leftmargin=*}
+%\setlist[itemize,1]{label=$\triangleleft$}
+%\setlist[enumerate]{labelsep=*,leftmargin=1.5pc}
+%\setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
+%\setlist[enumerate,2]{label=\emph{\alph*}),ref=\theenumi.\emph{\alph*}}
+%\setlist[enumerate,3]{label=\roman*), ref=\theenumii.\roman*}
+%\setlist[description]{font=\sffamily\bfseries}
+
