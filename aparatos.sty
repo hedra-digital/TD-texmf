@@ -3,30 +3,636 @@
 \RequirePackage{textcase}
 \RequirePackage{listingx}
 \RequirePackage{relsize}
-\RequirePackage{frontlayout}
 
 
+\DeclareOption{conselho}{%
+\newcommand{\conselho}{\vspace{-2pt}\hspace{-6pt}\mbox{}\begin{tabular}{ll}
+\textbf{corpo editorial} 
+			          & Adriano Scatolin,\\
+                & Caio Gagliardi,\\
+			          & Jorge Sallum,\\
+			          & Luis Dolhnikoff,\\
+                & Oliver Tolle,\\
+ 		            & Ricardo Musse,\\
+			          & Ricardo Valle,\\
+                & Tales Ab'Saber
+        \end{tabular}}}
 
+% OBS: Sumario
+
+% conferências de campos obrigatórios
 \ifdef{\autor}{}{\newcommand{\autor}{\relax}} 
 \ifdef{\titulo}{}{\newcommand{\titulo}{Autor da Obra}} 
 
+% layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\linhalayout}[2]{{\tiny\textbf{#1}\quad#2\par}}
+\newcommand{\fichalayout}[1]{\includegraphics[width=.8\textwidth]{#1}}
+\newcommand{\linha}[2]{\ifdef{#2}{\linhalayout{#1}{#2}}{}}
+\newcommand{\tipopadrao}{Libertine}
+
+\newcommand{\DistanciaImagemFront}{\vspace*{.3\textwidth}}
+\newcommand{\LarguraFront}{\textwidth}
+
+\newcommand{\TamanhoTitulo}{\Huge}
+
+\newcommand{\titulagemfront}{\IfFileExists{front.png}{\DistanciaImagemFront\includegraphics[width=\LarguraFront]{front.png}}%
+  {\begingroup\vspace*{.12\textheight} 
+                      \TamanhoTitulo \baselineskip=.67\baselineskip 
+                        \MakeTextLowercase{\textsc{\titulo}} 
+                       \par
+                   \ifdef{\subtit}{\smaller[3] \textit{\subtit}\par\medskip}{}\endgroup}}
+
+\newcommand{\titulagem}{{\vspace*{.12\textheight} 
+                      \TamanhoTitulo \baselineskip=.67\baselineskip 
+                        \MakeTextLowercase{\textsc{\titulo}} 
+                       \par
+                   \ifdef{\subtit}{\smaller[3] \textit{\subtit}\par\medskip}{}}}
+
+\newcommand{\sumario}{\begingroup\mbox{}\pagestyle{empty}\pagebreak\ifodd\thepage\paginabranca\fi
+                    \addtocontents{toc}{\hyphenpenalty=10000\protect\thispagestyle{empty}}
+                    \def\contentsname{Sumário}
+                    \tableofcontents*\clearpage\endgroup}
+\newcommand{\publicidade}{\pagebreak\pagestyle{empty}\parindent0pt
+\include{PUBLICIDADE}}
 
 
-
-\DeclareOption{livrodaclasse}{%
-  \input{frontlivrodaclasse}
-}
-
-\DeclareOption{standart}{%
-\input{fronthedra}
-}
-
-\DeclareOption{conselho}{%
-  \newcommand{\conselho}{\vspace{-2pt}\hspace{-6pt}\mbox{}\begin{tabular}{ll}
-  \textbf{corpo editorial} 
-  \input{frontconselho}        
-  \end{tabular}}}
 \DeclareOption{bolso}{\renewcommand{\TamanhoTitulo}{\LARGE}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareOption{standart}{%
+\AtBeginDocument{%
+\begingroup\pagestyle{empty}\raggedleft\parindent0pt
+\titulagemfront{}
+\vfill
+\clearpage
+
+%% Créditos ------------------------------------------------------
+\raggedright
+\linha{copyright}{\copyrightlivro}
+\linhalayout{edição brasileira©}{Hedra \ifdef{\ano}{\ano}{\the\year}}
+\linha{tradução©}{\copyrighttraducao}
+\linha{organização©}{\copyrightorganizacao}
+\linha{introdução©}{\copyrightintroducao}
+\linha{ilustração©}{\copyrightilustracao}\smallskip
+\linha{título original}{\titulooriginal}
+\linha{edição consultada}{\edicaoconsultada}
+\linha{primeira edição}{\primeiraedicao}
+\linha{agradecimentos}{\agradecimentos}
+\linha{indicação}{\indicacao}\smallskip
+\linha{edição}{\edicao}
+\linha{coedição}{\coedicao}
+\linha{assistência editorial}{\assistencia}
+\linha{revisão}{\revisao}
+\linha{preparação}{\preparacao}
+\linha{iconografia}{\iconografia}
+\linha{capa}{\capa}
+\linha{imagem da capa}{\imagemcapa}\smallskip
+\linha{ISBN}{\ISBN}\smallskip
+\begingroup\tiny
+\ifdef{\conselho}{\conselho}{\relax}
+\par\endgroup\bigskip
+
+\begingroup \tiny
+
+\textit{Grafia atualizada segundo o Acordo Ortográfico da Língua\\
+Portuguesa de 1990, em vigor no Brasil desde 2009.}\\
+
+
+\vfill\textit{Direitos reservados em l\'ingua\\ portuguesa somente para o Brasil}\\\medskip
+
+%
+\textsc{editora hedra ltda.}\\
+R.~Fradique Coutinho, 1139 (subsolo)\\
+05416--011 São Paulo \textsc{sp} Brasil\\
+Telefone/Fax +55 11 3097 8304\\\smallskip
+editora@hedra.com.br\\
+www.hedra.com.br\\
+\bigskip
+Foi feito o depósito legal.\\\endgroup
+\pagebreak\raggedleft
+%% Front ---------------------------------------------------------
+% Titulo
+\titulagem
+
+{\Large \autor \par\vspace{1.5ex}}
+\ifdef{\organizador}{{\small {\organizador} (\textit{organização})} \par}{}
+\ifdef{\introdutor}{{\small {\introdutor} (\textit{introdução})} \par}{}
+\ifdef{\tradutor}{{\small {\tradutor} (\textit{tradução})}\par}{}\vspace{1.5cm}
+
+{{\footnotesize{} \ifdef{\numeroedicao}{\numeroedicao}{1}ª edição} \par}
+
+%logos
+\vfill
+\ifdef{\logo}{\IfFileExists{\logo}{\hfill\includegraphics[width=3cm]{\logo}\hfill\logoum{}\\ São Paulo\_\the\year}}{\logoum\break{} São Paulo\_\the\year}
+%\includegraphics[width=.4\textwidth,trim=0 0 25 0]{logo.jpg}\\\smallskip
+\par\clearpage\endgroup
+% Resumo -------------------------------------------------------
+\begingroup \footnotesize \parindent0pt \parskip 5pt \thispagestyle{empty} \vspace*{.25\textheight}\mbox{} \vfill
+\baselineskip=.92\baselineskip
+\IfFileExists{PRETAS.tex}{\input{PRETAS}}{% 
+\ifdef{\resumo}{\resumo\par}{}
+\ifdef{\sobreobra}{\sobreobra}{}
+\ifdef{\sobreautor}{\mbox{}\vspace{4pt}\newline\sobreautor}{}
+\ifdef{\sobretradutor}{\newline\sobretradutor}{\relax}
+\ifdef{\sobreorganizador}{\vspace{4pt}\newline\sobreorganizador}{\relax}\par}
+\thispagestyle{empty} \endgroup
+\ifdefvoid{\sobreautor}{}{\pagebreak\ifodd\thepage\paginabranca\fi}
+% Sumário -------------------------------------------------------
+
+\sumario{}
+\IfFileExists{INTRO.tex}{\include{INTRO}}
+
+\IfFileExists{TEXTO.tex}{\mbox{}\include{TEXTO}}
+%\part[{{\def\break{}\titulo}}]{\titulo}
+} % fim do AtBeginDocument
+
+% Finais -------------------------------------------------------
+\AtEndDocument{%
+  \publicidade
+
+\pagebreak\ifodd\thepage\paginabranca\fi
+
+\ifdef{\imagemficha}{\IfFileExists{\imagemficha}{\includegraphics[width=.7\textwidth]{\imagemficha}\par}}{}
+
+\mbox{}\vfill\small\thispagestyle{empty}
+\noindent{} Adverte-se aos curiosos que se imprimiu este livro \ifdef{\grafica}{na gráfica \grafica}{em nossas oficinas}, 
+em \today \ifdef{\papelmiolo}{em papel \papelmiolo}, em tipologia \tipopadrao{}, com diversos sofwares livres, 
+entre eles, Lua\LaTeX, git \& ruby.\par \begin{center}\normalsize\adforn{64}\end{center}}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareOption{veneta}{%
+\AtBeginDocument{%
+%% Abre ----------------------------------------------------------
+% Titulo
+\vspace*{.45\textheight}
+{\begin{center}\centering\thispagestyle{empty}\includegraphics[width=.3\textwidth,trim=0 0 25 0]{veneta.png}\end{center}}
+\cleardoublepage
+  
+
+\begingroup\pagestyle{empty}\raggedleft\parindent0pt
+\IfFileExists{front.png}{\DistanciaImagemFront\includegraphics[width=.7\textwidth]{front.png}}{%
+\vspace*{.12\textheight} {\Huge\ifdef{\fontespecial}{\fontespecial}{}\baselineskip=.67\baselineskip {\textsc{\titulo}} \par}
+% Subtitulo
+\ifdef{\subtit}{{\huge \textit{\subtitulo}\par}}{}}
+\vfill
+\mbox{}\pagebreak\relax
+\clearpage
+%
+%%% Créditos ------------------------------------------------------
+\raggedright
+\linha{copyright}{\copyrightlivro}
+%\linhalayout{edição brasileira©}{Veneta \ifdef{\ano}{\ano}{\the\year}}
+%\linha{tradução©}{\copyrighttraducao}
+%\linha{organização©}{\copyrightorganizacao}
+%\linha{introdução©}{\copyrightintroducao}
+\linha{ilustração©}{\copyrightilustracao}\smallskip
+\linha{título original}{\titulooriginal}
+\linha{edição consultada}{\edicaoconsultada}
+\linha{primeira edição}{\primeiraedicao}
+\linha{agradecimentos}{\agradecimentos}
+\linha{indicação}{\indicacao}\smallskip
+\linha{edição}{\edicao}
+\linha{coedição}{\coedicao}
+\linha{assistência editorial}{\assistencia}
+\linha{revisão}{\revisao}
+\linha{preparação}{\preparacao}
+\linha{capa}{\capa}
+\linha{imagem da capa}{\imagemcapa}\smallskip
+\linha{ISBN}{\ISBN}\smallskip
+\begingroup\tiny
+\ifdef{\imagemficha}{\includegraphics[width=.7\textwidth]{\imagemficha}\par}{}
+\par\endgroup\bigskip
+%
+\begingroup \tiny
+%
+\textit{Grafia atualizada segundo o Acordo Ortográfico da Língua\\
+Portuguesa de 1990, em vigor no Brasil desde 2009.}\\
+%
+%
+\vfill\textit{Direitos reservados em l\'ingua\\ portuguesa somente para o Brasil}\\\medskip
+%
+%%
+\textsc{editora veneta ltda.}\\
+R.~Araújo, 124 (1º andar)\\
+01220--020 São Paulo \textsc{sp} Brasil\\
+Telefone/Fax +55 11 3211 1233\\\smallskip
+contato@veneta.com.br\\
+veneta.com.br\\
+\bigskip
+Foi feito o depósito legal.\\\endgroup
+\pagebreak\raggedleft
+%% Front ---------------------------------------------------------
+% Titulo
+\vspace*{.12\textheight}  {\Huge \ifdef{\fontespecial}{\fontespecial}{}\baselineskip=.67\baselineskip {\textsc{\titulo}} \par}
+% Subtitulo
+\ifdef{\subtit}{{\huge \textit{\subtitulo}\par}}{}
+% Equipe de destaque
+  % organizador
+{\Large \autor \par\vspace{1.5ex}}
+\ifdef{\organizador}{{\small {\organizador} (\textit{organização})} \par}{}
+\ifdef{\introdutor}{{\small {\introdutor} (\textit{introdução})} \par}{}
+\ifdef{\tradutor}{{\small {\tradutor} (\textit{tradução})}\par}{}\vspace{1.5cm}
+
+{{\footnotesize{} \ifdef{\numeroedicao}{\numeroedicao}{1}ª edição} \par}
+
+%logos
+\vfill
+\includegraphics[width=.3\textwidth,trim=0 0 25 0]{veneta.png}\\\smallskip
+São Paulo\_\the\year\par\clearpage\endgroup
+% Resumo -------------------------------------------------------
+\begingroup \footnotesize \parindent0pt \parskip 5pt \thispagestyle{empty} \vspace*{.25\textheight}\mbox{} \vfill
+
+{\baselineskip=.92\baselineskip
+\ifdef{\resumo}{\resumo}{}
+\ifdef{\sobreobra}{\sobreobra}{}
+\ifdef{\sobreautor}{\newline\sobreautor}{}
+\ifdef{\sobretradutor}{\newline\sobretradutor}{}
+\ifdef{\sobreorganizador}{\newline\sobreorganizador}{}}
+\thispagestyle{empty} \endgroup 
+\ifdefvoid{\sobreobra}{}{\pagebreak\ifodd\thepage\paginabranca\fi}
+% Sumário -------------------------------------------------------
+
+{\mbox{}\pagebreak\ifodd\thepage\paginabranca\fi
+
+\def\contentsname{Sumário}
+\thispagestyle{empty}
+\tableofcontents*}
+
+} % fim do AtBeginDocument
+%
+%% Finais -------------------------------------------------------
+\AtEndDocument{%
+%
+\pagebreak\ifodd\thepage\paginabranca\fi
+
+
+\mbox{}\vfill\small\thispagestyle{empty}
+Adverte-se aos curiosos que se imprimiu este livro \ifdef{\grafica}{na gráfica \grafica}{em nossas oficinas}, 
+em \today \ifdef{\papelmiolo}{em papel \papelmiolo}, em tipologia \tipopadrao{}, com diversos sofwares livres, 
+entre eles, Lua\LaTeX, git \& ruby.\par \begin{center}\normalsize\adforn{64}\end{center}
+}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareOption{ebook}{%
+\newcommand{\versal}[1]{#1}
+% conferências de campos obrigatórios
+\ifdef{\autor}{\author{\autor}}{\author{\relax}} 
+\ifdef{\titulo}{\title{\titulo}}{\title{Autor da Obra}} 
+% layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\linhalayout}[2]{{\small\textbf{#1}\quad#2 }}
+\renewcommand{\fichalayout}[1]{\includegraphics[width=.8\textwidth]{#1}}
+\renewcommand{\linha}[2]{\ifdef{#2}{\linhalayout{#1}{#2} — }{}}
+\renewcommand{\tipopadrao}{Libertine}
+%
+\AtBeginDocument{%
+%%%% Abre ----------------------------------------------------------
+%%% Titulo
+
+\coverimage{capa.png}
+
+\centerline{% 
+\ifdef{\titulo}{{\HUGE \textit{\titulo}}}{}
+  \ifdef{\subtit}{{\Huge \textit{\subtit}}}{}
+  \ifdef{\autor}{{\huge \textit{\autor}}}{}
+\ifdef{\organizador}{{\small {\organizador} (\textit{org.})} }{}\mbox{}\\
+\ifdef{\tradutor}{{\small {\tradutor} (\textit{trad.})}}{}\mbox{}\\
+\ifdef{\introdutor}{{\small {\introdutor} (\textit{introd.})}}{}}\mbox{}\\
+\vfill
+\centerline{%
+\mbox{}.\\
+\mbox{}.\\
+\mbox{}.\\
+\mbox{}.\\
+\mbox{}.}
+%%%% Créditos ------------------------------------------------------
+\centerline{%
+— \linha{copyright}{\copyrightlivro}
+\linhalayout{edição©}{Hedra \ifdef{\ano}{\ano}{\the\year} —}
+\linha{tradução©}{\copyrighttraducao}
+\linha{organização©}{\copyrightorganizacao}
+\linha{introdução©}{\copyrightintroducao}
+\linha{ilustração©}{\copyrightilustracao}
+\linha{título original}{\titulooriginal}
+\linha{edição consultada}{\edicaoconsultada}
+\linha{primeira edição}{\primeiraedicao}
+\linha{agradecimentos}{\agradecimentos}
+\linha{indicação}{\indicacao}
+\linha{ISBN}{\ISBN} 
+\linha{edição}{\edicao}
+\linha{coedição}{\coedicao}
+\linha{assistência editorial}{\assistencia}
+\linha{revisão}{\revisao}
+\linha{preparação}{\preparacao}
+\linha{capa}{\capa}
+\linha{imagem da capa}{\imagemcapa}}
+
+\ \\
+\ \\
+\ \\
+\ \\
+\tiny
+\textit{Direitos reservados em l\'ingua\\ portuguesa somente para o Brasil}\\
+\ \\
+\textsc{editora hedra ltda.}\\
+R.~Fradique Coutinho, 1139 (subsolo)\\
+05416--011 São Paulo \textsc{sp} Brasil\\
+Telefone/Fax +55 11 3097 8304\\\smallskip
+editora@hedra.com.br\\
+www.hedra.com.br\\
+Foi feito o depósito legal.\\
+\pagebreak
+%%% Front ---------------------------------------------------------
+%% Titulo
+\mbox{}\\
+\mbox{}\\
+\mbox{}\\
+%%logos
+%\vfill
+%\logoum 
+%\,\ \ São Paulo\_\the\year\mbox{}\\
+%\noindent\rule{\textwidth}{3mm}\mbox{}\\\endgroup
+%%% Resumo -------------------------------------------------------
+%\begingroup \footnotesize \parindent0pt \parskip 5pt \thispagestyle{empty} \vspace*{.4\textheight}\mbox{} \vfill
+%\ifdef{\sobreobra}{\sobreobra}{\textbf{Sobre a obra} \lipsum[1]}
+%\ifdef{\sobreautor}{\sobreautor}{\textbf{Sobre o autor} \lipsum[2]}
+%\ifdef{\sobretradutor}{\sobretradutor}{\relax}
+%\ifdef{\sobreorganizador}{\sobreorganizador}{\relax}
+%\thispagestyle{empty} \endgroup 
+%%\pagebreak\ifodd\thepage\paginabranca\fi
+%%% Sumário -------------------------------------------------------
+%%
+%%
+\ \\
+\ \\
+
+%%% Resumo -------------------------------------------------------
+\begingroup \footnotesize \parindent0pt \parskip 5pt
+\clearpage
+\IfFileExists{PRETAS.tex}{\input{PRETAS}}{% 
+\ifdef{\sobreobra}{\sobreobra\mbox{}\\}{\relax}
+\ifdef{\sobreautor}{\sobreautor\mbox{}\\}{\relax}
+\ifdef{\sobretradutor}{\sobretradutor\mbox{}\\}{\relax}
+\ifdef{\sobreorganizador}{\sobreorganizador}{\relax} \endgroup
+}
+
+\ \\
+\ \\
+\ \\
+\ \\
+
+%
+} 
+%
+%
+%% fim do AtBeginDocument
+%
+%% Finais -------------------------------------------------------
+\AtEndDocument{%
+\ \\
+\ \\
+\ \\
+\ \\
+
+\centerline{* * *}
+\ \\
+\ \\
+
+\ifdef{\imagemficha}{\includegraphics[width=.8\textwidth]{\imagemficha}\par}{}
+%
+\vfill\small
+Adverte-se aos curiosos que se imprimiu este livro \ifdef{\grafica}{na gráfica \grafica}{em nossas oficinas}, 
+em \today \ifdef{\papelmiolo}{em papel \papelmiolo}, em tipologia \tipopadrao{}, com diversos sofwares livres, 
+entre eles, Lua\LaTeX, git \& ruby.\par \begin{center}\normalsize\adforn{64}\end{center}}
+%  
+}
+
+%%MAMELUCO%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\DeclareOption{mameluco}{%
+\AtBeginDocument{%
+%% Abre ----------------------------------------------------------
+% Titulo
+\begingroup\pagestyle{empty}\raggedleft\parindent0pt
+\titulagem
+\vfill
+\clearpage
+
+%% Créditos ------------------------------------------------------
+\raggedright
+\linha{copyright}{\copyrightlivro}
+\linhalayout{edição brasileira©}{Mameluco \ifdef{\ano}{\ano}{\the\year}}
+\linha{tradução©}{\copyrighttraducao}
+\linha{organização©}{\copyrightorganizacao}
+\linha{introdução©}{\copyrightintroducao}
+\linha{ilustração©}{\copyrightilustracao}\smallskip
+\linha{título original}{\titulooriginal}
+\linha{edição consultada}{\edicaoconsultada}
+\linha{primeira edição}{\primeiraedicao}
+\linha{agradecimentos}{\agradecimentos}
+\linha{indicação}{\indicacao}\smallskip
+\linha{edição}{\edicao}
+\linha{coedição}{\coedicao}
+\linha{assistência editorial}{\assistencia}
+\linha{revisão}{\revisao}
+\linha{preparação}{\preparacao}
+\linha{capa}{\capa}
+\linha{imagem da capa}{\imagemcapa}\smallskip
+\linha{ISBN}{\ISBN}\smallskip
+\begingroup\tiny
+\ifdef{\conselho}{\conselho}{\relax}
+\par\endgroup\bigskip
+
+\begingroup \tiny
+
+\textit{Grafia atualizada segundo o Acordo Ortográfico da Língua\\
+Portuguesa de 1990, em vigor no Brasil desde 2009.}\\
+
+
+\vfill\textit{Direitos reservados em l\'ingua\\ portuguesa somente para o Brasil}\\\medskip
+
+%
+
+
+\hspace{-3pt}\includegraphics[width=2.5cm]{mameluco.jpg}\\
+Rua General Jardim, 633, conj.~52\\
+Vila Buarque, 01223-011, São Paulo -- \textsc{sp}\\
+Telefone: (11) 3123-0110/ Fax: (11) 3123-0162\\
+www.mameluco.com.br
+
+\bigskip
+Foi feito o depósito legal.\\\endgroup
+\pagebreak\raggedleft
+%% Front ---------------------------------------------------------
+\titulagem{}
+{\Large \autor \par\vspace{1.5ex}}
+\ifdef{\organizador}{{\small {\organizador} (\textit{organização})} \par}{}
+\ifdef{\tradutor}{{\small {\tradutor} (\textit{tradução})}\par}{}\vspace{1.5cm}
+
+{{\footnotesize{} 1ª edição} \par}
+
+%logos
+\vfill
+\includegraphics[width=.4\textwidth,trim=0 0 25 0]{mameluco.jpg}\\\smallskip
+São Paulo\_\the\year\par\clearpage\endgroup
+% Resumo -------------------------------------------------------
+\begingroup \footnotesize \parindent0pt \parskip 5pt \thispagestyle{empty} \vspace*{.25\textheight}\mbox{} \vfill
+
+{\baselineskip=.87\baselineskip
+\ifdef{\resumo}{\resumo\par}{}
+\ifdef{\sobreobra}{\sobreobra}{}
+\ifdef{\sobreautor}{\mbox{}\vspace{4pt}\newline\sobreautor}{}
+\ifdef{\sobretradutor}{\newline\sobretradutor}{\relax}
+\ifdef{\sobreorganizador}{\vspace{4pt}\newline\sobreorganizador}{\relax}}
+\thispagestyle{empty} \endgroup
+\ifdefvoid{\sobreobra}{}{\pagebreak\ifodd\thepage\paginabranca\fi}
+% Sumário -------------------------------------------------------
+
+\mbox{}\thispagestyle{empty}\pagebreak\ifodd\thepage\paginabranca\fi
+
+\def\contentsname{Sumário}
+\tableofcontents*
+} % fim do AtBeginDocument
+
+% Finais -------------------------------------------------------
+\AtEndDocument{%
+\pagebreak\pagestyle{empty}\parindent0pt
+
+\pagebreak\ifodd\thepage\paginabranca\fi
+
+\ifdef{\imagemficha}{\includegraphics[width=.7\textwidth]{\imagemficha}\par}{}
+
+\mbox{}\vfill\small
+Adverte-se aos curiosos que se imprimiu este livro \ifdef{\grafica}{na gráfica \grafica}{em nossas oficinas}, 
+em \today \ifdef{\papelmiolo}{em papel \papelmiolo}, em tipologia \tipopadrao{}, com diversos sofwares livres, 
+entre eles, Lua\LaTeX, git \& ruby.\par \begin{center}\normalsize\adforn{64}\end{center}}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%livro da classe %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareOption{livrodaclasse}{%
+\AtBeginDocument{%
+\begingroup\pagestyle{empty}\raggedleft\parindent0pt
+\titulagem{}
+\vfill
+\clearpage
+%% Créditos ------------------------------------------------------
+\raggedright
+\linha{Copyright}{\copyrightlivro}
+\linha{Organização©}{\copyrightorganizacao}
+\linha{Introdução©}{\copyrightintroducao}
+\linha{Ilustração©}{\copyrightilustracao}
+\linha{Agradecimentos}{\agradecimentos}
+\linha{Indicação}{\indicacao}
+\linha{Edição}{\edicao}
+\linha{Coedição}{\coedicao}
+\linha{Assistência editorial}{\assistencia}
+\linha{Revisão}{\revisao}
+\linha{Preparação}{\preparacao}
+\linha{Capa}{\capa}
+\linha{Imagem da capa}{\imagemcapa}
+\linha{ISBN}{\ISBN}
+\ifdef{\diretor}{\listax{Direção}{\diretor}}{}
+\linha{Coordenação}{\coordenador}
+\bigskip
+\ifdef{\imagemficha}{\IfFileExists{\imagemficha}{\includegraphics[width=.7\textwidth]{\imagemficha}\par}}{}
+
+\begingroup\tiny
+\ifdef{\conselho}{\conselho}{\relax}
+\par\endgroup\bigskip
+
+\begingroup \tiny
+
+%\textit{Grafia atualizada segundo o Acordo Ortográfico da Língua\\
+%Portuguesa de 1990, em vigor no Brasil desde 2009.}\\
+
+
+\vfill
+%\textit{Direitos reservados em l\'ingua\\ portuguesa somente para o Brasil}\\\medskip
+
+%
+\ifdef{\instituicao{}}{\textsc{\instituicao}\par}{}
+\ifdef{\logradouro}{\logradouro}{}\ifdef{\numero}{,\,\numero\par}{}
+\ifdef{\cep}{\cep\ }{} \ifdef{\cidadeinstituicao}{\cidadeinstituicao\ }{} \ifdef{\estado\ }{\estado}{} \par\smallskip
+% Faltou Telefone, email, site, facebook, twitter, instagram
+\ifdef{\telefone}{\telefone\par}{}
+\ifdef{\site}{\site\par}{}
+\ifdef{\email}{\email\par}{}
+\ifdef{\facebook}{\facebook\par}{}
+\ifdef{\twitter}{\twitter\par}{}
+\ifdef{\instagram}{\instagram\par}{}
+\endgroup
+\pagebreak\raggedleft
+%% Front ---------------------------------------------------------
+% Titulo
+\titulagem
+
+{\Large \autor \par\vspace{1.5ex}}
+\ifdef{\organizador}{{\small {\organizador} (\textit{organização})} \par}{}
+\ifdef{\turma}{{\small {\turma}}\par}{}
+\vspace{1.5cm}
+
+
+%logos
+\vfill
+
+
+\ifdef{\cidadeinstituicao}{\hspace{2cm}\cidadeinstituicao\_}{}\the\year
+\ifdef{\logo}{\IfFileExists{\logo}{\hfill\includegraphics[width=3cm]{\logo}\par}}{}
+\par\clearpage\endgroup
+
+% Resumo -------------------------------------------------------
+\begingroup \footnotesize \parindent0pt \parskip 5pt \thispagestyle{empty} \vspace*{.25\textheight}\mbox{} \vfill
+
+{\baselineskip=.87\baselineskip  \defineshorthand{"-}{\discretionary{-}{-}{-}}
+\ifdef{\resumo}{\resumo\par}{}
+\ifdef{\sobreobra}{\sobreobra}{}
+\ifdef{\sobreautor}{\mbox{}\vspace{4pt}\newline\sobreautor}{}
+\ifdef{\sobretradutor}{\newline\sobretradutor}{\relax}
+\ifdef{\sobreorganizador}{\vspace{4pt}\newline\sobreorganizador}{\relax}\par}
+\thispagestyle{empty} \endgroup
+\ifdefvoid{\sobreautor}{}{\pagebreak\ifodd\thepage\paginabranca\fi}
+% Sumário -------------------------------------------------------
+
+\sumario{}
+
+%\part[{{\def\break{}\titulo}}]{\titulo}
+} % fim do AtBeginDocument
+
+% Finais -------------------------------------------------------
+\AtEndDocument{%
+  \publicidade
+
+\pagebreak\ifodd\thepage\paginabranca\fi
+
+
+\mbox{}\vfill\small \thispagestyle{empty}
+\noindent Adverte-se aos curiosos que se imprimiu este livro \ifdef{\grafica}{na gráfica \grafica}{em nossas oficinas}, 
+em \today \ifdef{\papelmiolo}{em papel \papelmiolo}, em tipologia \tipopadrao{}, com diversos sofwares livres, 
+entre eles, Lua\LaTeX, git \& ruby.\par \begin{center}\normalsize\end{center}}
+}
+
 \DeclareOption{sempart}{\renewcommand{\part}[1]{}}
 \DeclareOption{semsumario}{\renewcommand{\sumario}{\relax}}
 \DeclareOption{sempublicidade}{\renewcommand{\publicidade}{\relax}}
