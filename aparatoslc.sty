@@ -53,6 +53,9 @@
                     \addtocontents{toc}{\hyphenpenalty=10000\protect\thispagestyle{empty}}
                     \def\contentsname{Sumário}
                     \tableofcontents*\clearpage\endgroup}
+
+
+                    
 \newcommand{\publicidade}{\pagebreak\pagestyle{empty}\parindent0pt
 \include{PUBLICIDADE}}
 
@@ -157,7 +160,11 @@
 
 % Finais -------------------------------------------------------
 \AtEndDocument{%
-  \publicidade
+
+
+  \ifdef{\indice}{\indice}{\relax}
+
+\publicidade
 
 \pagebreak\ifodd\thepage\paginabranca\fi
 
@@ -172,5 +179,5 @@ entre eles, Lua\LaTeX, git \& ruby.\par \begin{center}\normalsize\end{center}}
 \DeclareOption{semsumario}{\renewcommand{\sumario}{\relax}}
 \DeclareOption{sempublicidade}{\renewcommand{\publicidade}{\relax}}
 \DeclareOption{semsumario}{\renewcommand{\sumario}{\ifdef{\titulo}{\part{\titulo}{}}}}
-
+\DeclareOption{indice}{\newcommand{\indice}{\begingroup\mbox{}\pagestyle{empty}\pagebreak\ifodd\thepage\paginabranca\fi\addtocontents{toc}{\hyphenpenalty=10000\protect\thispagestyle{empty}}\def\contentsname{Índice}\tableofcontents*\clearpage\endgroup}}
 \ProcessOptions
