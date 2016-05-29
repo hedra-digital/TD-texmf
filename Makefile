@@ -1,8 +1,15 @@
 all:
+	xelatex LIVRO.tex
+latexmk:
+	latexmk -xelatex -interaction=nonstopmode LIVRO.tex
+clean:
+	-rm *aux *log *tui *toc *.4ct *.4tc *.html *.css *.dvi *.epub *.lg *.ncx *.xref *.tmp *.idv *.opf *.png  LIVRO.pdf *.fdb_latexmk *.fls
 git:
 	git add .
 	git commit -m "mudança pequena"
 	git push
+
+
 calibre:
 	sudo -v && wget -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre/master/setup/linux-installer.py | sudo python -c "import sys; main=lambda:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main()"
 linuxli-bertine:
