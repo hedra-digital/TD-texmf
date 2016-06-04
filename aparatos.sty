@@ -3,171 +3,30 @@
 \RequirePackage{textcase}
 \RequirePackage{listingx}
 \RequirePackage{relsize}
+\RequirePackage{frontlayout}
 
 
-\DeclareOption{conselho}{%
-\newcommand{\conselho}{\vspace{-2pt}\hspace{-6pt}\mbox{}\begin{tabular}{ll}
-\textbf{corpo editorial} 
-			          & Adriano Scatolin,\\
-                & Caio Gagliardi,\\
-			          & Jorge Sallum,\\
-                & Oliver Tolle,\\
- 		            & Ricardo Musse,\\
-			          & Ricardo Valle,\\
-                & Tales Ab'Saber\\
-                & Tâmis Parron\\
-                & Vicente de Arruda Sampaio\\
-        \end{tabular}}}
 
-% OBS: Sumario
-
-% conferências de campos obrigatórios
 \ifdef{\autor}{}{\newcommand{\autor}{\relax}} 
 \ifdef{\titulo}{}{\newcommand{\titulo}{Autor da Obra}} 
 
-% layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\linhalayout}[2]{{\tiny\textbf{#1}\quad#2\par}}
-\newcommand{\fichalayout}[1]{\includegraphics[width=.8\textwidth]{#1}}
-\newcommand{\linha}[2]{\ifdef{#2}{\linhalayout{#1}{#2}}{}}
-\newcommand{\tipopadrao}{Libertine}
-
-\newcommand{\DistanciaImagemFront}{\vspace*{.3\textwidth}}
-\newcommand{\LarguraFront}{\textwidth}
-
-\newcommand{\TamanhoTitulo}{\Huge}
-
-\newcommand{\titulagemfront}{\IfFileExists{front.png}{\DistanciaImagemFront\includegraphics[width=\LarguraFront]{front.png}}%
-  {\begingroup\vspace*{.12\textheight} 
-                      \TamanhoTitulo \baselineskip=.67\baselineskip 
-                        \MakeTextLowercase{\textsc{\titulo}} 
-                       \par
-                   \ifdef{\subtit}{\smaller[3] \textit{\subtit}\par\medskip}{}\endgroup}}
-
-\newcommand{\titulagem}{{\vspace*{.12\textheight} 
-                      \TamanhoTitulo \baselineskip=.67\baselineskip 
-                        \MakeTextLowercase{\textsc{\titulo}} 
-                       \par
-                   \ifdef{\subtit}{\smaller[3] \textit{\subtit}\par\medskip}{}}}
-
-\newcommand{\sumario}{\begingroup\mbox{}\pagestyle{empty}\pagebreak\ifodd\thepage\paginabranca\fi
-                    \addtocontents{toc}{\hyphenpenalty=10000\protect\thispagestyle{empty}}
-                    \def\contentsname{Sumário}
-                    \tableofcontents*\clearpage\endgroup}
-\newcommand{\publicidade}{\pagebreak\pagestyle{empty}\parindent0pt
-\include{PUBLICIDADE}}
 
 
-\DeclareOption{bolso}{\renewcommand{\TamanhoTitulo}{\LARGE}}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\DeclareOption{standart}{%
-  \AtBeginDocument{%
-\begingroup\pagestyle{empty}\raggedleft\parindent0pt
-\titulagemfront{}
-\vfill
-\clearpage
-
-%% Créditos ------------------------------------------------------
-\raggedright
-\linha{copyright}{\copyrightlivro}
-\linhalayout{edição brasileira©}{Hedra \ifdef{\ano}{\ano}{\the\year}}
-\linha{tradução©}{\copyrighttraducao}
-\linha{organização©}{\copyrightorganizacao}
-\linha{introdução©}{\copyrightintroducao}
-\linha{ilustração©}{\copyrightilustracao}\smallskip
-\linha{título original}{\titulooriginal}
-\linha{edição consultada}{\edicaoconsultada}
-\linha{primeira edição}{\primeiraedicao}
-\linha{agradecimentos}{\agradecimentos}
-\linha{indicação}{\indicacao}\smallskip
-\linha{edição}{\edicao}
-\linha{coedição}{\coedicao}
-\linha{assistência editorial}{\assistencia}
-\linha{revisão}{\revisao}
-\linha{preparação}{\preparacao}
-\linha{iconografia}{\iconografia}
-\linha{capa}{\capa}
-\linha{imagem da capa}{\imagemcapa}\smallskip
-\linha{ISBN}{\ISBN}\smallskip
-\linha{ISBN do epub}{\ISBNepub}\smallskip
-\begingroup\tiny
-\ifdef{\conselho}{\conselho}{\relax}
-\par\endgroup\bigskip
-
-\begingroup \tiny
-
-\textit{Grafia atualizada segundo o Acordo Ortográfico da Língua\\
-Portuguesa de 1990, em vigor no Brasil desde 2009.}\\
-
-
-\vfill\textit{Direitos reservados em l\'ingua\\ portuguesa somente para o Brasil}\\\medskip
-
-%
-\textsc{editora hedra ltda.}\\
-R.~Fradique Coutinho, 1139 (subsolo)\\
-05416--011 São Paulo \textsc{sp} Brasil\\
-Telefone/Fax +55 11 3097 8304\\\smallskip
-editora@hedra.com.br\\
-www.hedra.com.br\\
-\bigskip
-Foi feito o depósito legal.\\\endgroup
-\pagebreak\raggedleft
-%% Front ---------------------------------------------------------
-% Titulo
-\titulagem
-
-{\Large \autor \par\vspace{1.5ex}}
-\ifdef{\organizador}{{\small {\organizador} (\textit{organização})} \par}{}
-\ifdef{\tradutor}{{\small {\tradutor} (\textit{tradução})}\par}{}
-\ifdef{\introdutor}{{\small {\introdutor} (\textit{introdução})} \par}{}
-
-{{\footnotesize{} \ifdef{\numeroedicao}{\numeroedicao}{1}ª edição} \par}
-{\footnotesize{} \ifdef{\numeroreimpressao}{\numeroreimpressao{}ª reimpressão\par}{}}
-
-%logos
-\vfill
-\ifdef{\logo}{\IfFileExists{\logo}{\hfill\includegraphics[width=3cm]{\logo}\hfill\logoum{}\\ São Paulo\_\the\year}}{\logoum\break{} São Paulo\_\the\year}
-%\includegraphics[width=.4\textwidth,trim=0 0 25 0]{logo.jpg}\\\smallskip
-\par\clearpage\endgroup
-% Resumo -------------------------------------------------------
-\begingroup \footnotesize \parindent0pt \parskip 5pt \thispagestyle{empty} \vspace*{.25\textheight}\mbox{} \vfill
-\baselineskip=.92\baselineskip
-\IfFileExists{PRETAS.tex}{\input{PRETAS}}{% 
-\ifdef{\resumo}{\resumo\par}{}
-\ifdef{\sobreobra}{\sobreobra}{}
-\ifdef{\sobreautor}{\mbox{}\vspace{4pt}\newline\sobreautor}{}
-\ifdef{\sobretradutor}{\newline\sobretradutor}{\relax}
-\ifdef{\sobreorganizador}{\vspace{4pt}\newline\sobreorganizador}{\relax}\par}
-\thispagestyle{empty} \endgroup
-\ifdefvoid{\sobreautor}{}{\pagebreak\ifodd\thepage\paginabranca\fi}
-% Sumário -------------------------------------------------------
-
-\sumario{}
-\IfFileExists{INTRO.tex}{\include{INTRO}}
-
-\IfFileExists{TEXTO.tex}{\mbox{}\include{TEXTO}}
-%\part[{{\def\break{}\titulo}}]{\titulo}
-} % fim do AtBeginDocument
-
-% Finais -------------------------------------------------------
-\AtEndDocument{%
-  \publicidade
-
-\pagebreak\ifodd\thepage\paginabranca\fi
-
-\ifdef{\imagemficha}{\IfFileExists{\imagemficha}{\includegraphics[width=.7\textwidth]{\imagemficha}\par}}{}
-
-\mbox{}\vfill\small\thispagestyle{empty}
-\noindent{} Adverte-se aos curiosos que se imprimiu este livro \ifdef{\grafica}{na gráfica \grafica}{em nossas oficinas}, 
-em \today \ifdef{\papelmiolo}{\ em papel \papelmiolo}, em tipologia \tipopadrao{}, com diversos sofwares livres, 
-entre eles, \LaTeX, git \& ruby.\par \begin{center}\normalsize\adforn{64}\end{center}}
+\DeclareOption{livrodaclasse}{%
+  \input{frontlivrodaclasse}
 }
 
+\DeclareOption{standart}{%
+\input{fronthedra}
+}
 
-% Para evitar quebra
-\DeclareOption{livrodaclasse}{\renewcommand{}
-
-
+\DeclareOption{conselho}{%
+  \newcommand{\conselho}{\vspace{-2pt}\hspace{-6pt}\mbox{}\begin{tabular}{ll}
+  \textbf{corpo editorial} 
+  \input{frontconselho}        
+  \end{tabular}}}
+\DeclareOption{bolso}{\renewcommand{\TamanhoTitulo}{\LARGE}}
 \DeclareOption{sempart}{\renewcommand{\part}[1]{}}
 \DeclareOption{semsumario}{\renewcommand{\sumario}{\relax}}
 \DeclareOption{sempublicidade}{\renewcommand{\publicidade}{\relax}}
