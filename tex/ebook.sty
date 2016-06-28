@@ -1,0 +1,95 @@
+% Comandos adaptados para ebook
+\newcommand{\tit}[1]{\item #1}
+\newcommand{\titidem}{\item .________}
+  \newcommand{\bm}{}
+  \newcommand{\versal}[1]{#1}
+
+
+% conferências de campos obrigatórios
+\ifdef{\autor}{\author{\autor}}{\author{\relax}} 
+\ifdef{\titulo}{\title{\titulo}}{\title{Autor da Obra}} 
+% layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\linhalayout}[2]{{\small\textbf{#1}\quad#2 }}
+\renewcommand{\fichalayout}[1]{\includegraphics[width=.8\textwidth]{#1}}
+\renewcommand{\linha}[2]{\ifdef{#2}{\linhalayout{#1}{#2} — }{}}
+\renewcommand{\tipopadrao}{Libertine}
+%
+%\AtBeginDocument{%
+%%%% Resumo -------------------------------------------------------
+%
+%  \chapter{teste}
+%\begingroup \footnotesize \parindent0pt \parskip 5pt 
+%\ifdef{\sobreobra}{\sobreobra}{\textbf{Sobre a obra} \lipsum[1]}
+%\ifdef{\sobreautor}{\sobreautor}{\textbf{Sobre o autor} \lipsum[2]}
+%\ifdef{\sobretradutor}{\sobretradutor}{\relax}
+%\ifdef{\sobreorganizador}{\sobreorganizador}{\relax} \endgroup
+%
+%\ \\
+%\ \\
+%\ \\
+%\ \\
+%
+%} 
+%
+%
+%% fim do AtBeginDocument
+%
+%% Finais -------------------------------------------------------
+\AtEndDocument{%
+%%%% Abre ----------------------------------------------------------
+%%% Titulo
+
+%\centerline{\ifdef{\subtit}{{\huge \textit{\subtit}}}{}
+%\ifdef{\organizador}{{\small {\organizador} (\textit{org.})} }{}\mbox{}\\
+%%\ifdef{\tradutor}{{\small {\tradutor} (\textit{trad.})}}{}\mbox{}\\
+%\ifdef{\introdutor}{{\small {\introdutor} (\textit{introd.})}}{}}\mbox{}\\
+%\vfill
+%%%%% Créditos ------------------------------------------------------
+%\linha{copyright}{\copyrightlivro}
+%\linhalayout{edição©}{Hedra \ifdef{\ano}{\ano}{\the\year}}
+%\linha{tradução©}{\copyrighttraducao}
+%\linha{organização©}{\copyrightorganizacao}
+%\linha{introdução©}{\copyrightintroducao}
+%\linha{ilustração©}{\copyrightilustracao}
+%\linha{título original}{\titulooriginal}
+%\linha{edição consultada}{\edicaoconsultada}
+%\linha{primeira edição}{\primeiraedicao}
+%\linha{agradecimentos}{\agradecimentos}
+%\linha{indicação}{\indicacao}
+%\linha{ISBN}{\ISBN} 
+%\linha{edição}{\edicao}
+%\linha{coedição}{\coedicao}
+%\linha{assistência editorial}{\assistencia}
+%\linha{revisão}{\revisao}
+%\linha{preparação}{\preparacao}
+%\linha{capa}{\capa}
+%\linha{imagem da capa}{\imagemcapa}
+%
+%\ \\
+%\ \\
+%\ \\
+%\ \\
+%\tiny
+%\textit{Direitos reservados em l\'ingua\\ portuguesa somente para o Brasil}\\
+%\ \\
+%\textsc{editora hedra ltda.}\\
+%R.~Fradique Coutinho, 1139 (subsolo)\\
+%05416--011 São Paulo \textsc{sp} Brasil\\
+%Telefone/Fax +55 11 3097 8304\\\smallskip
+%editora@hedra.com.br\\
+%www.hedra.com.br\\
+%Foi feito o depósito legal.\\
+%
+%
+%\pagebreak
+%%%% Front ---------------------------------------------------------
+%%% Titulo
+\centerline{* * *}
+
+\ifdef{\imagemficha}{\includegraphics[width=.8\textwidth]{\imagemficha}\par}{}
+%
+\vfill\small
+\noindent{}Adverte-se aos curiosos que se imprimiu este livro \ifdef{\grafica}{na gráfica \grafica}{em nossas oficinas}, 
+em \today \ifdef{\papelmiolo}{em papel \papelmiolo}, em tipologia \tipopadrao{}, com diversos sofwares livres, 
+entre eles, Lua\LaTeX, git \& ruby.\par \begin{center}\normalsize« »\end{center}}
+%  

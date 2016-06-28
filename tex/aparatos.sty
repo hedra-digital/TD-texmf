@@ -1,0 +1,35 @@
+\RequirePackage{etoolbox}
+\RequirePackage{hedralogo}
+\RequirePackage{textcase}
+\RequirePackage{listingx}
+\RequirePackage{relsize}
+\RequirePackage{frontlayout}
+
+
+
+\ifdef{\autor}{}{\newcommand{\autor}{\relax}} 
+\ifdef{\titulo}{}{\newcommand{\titulo}{Autor da Obra}} 
+
+
+
+
+\DeclareOption{livrodaclasse}{%
+  \input{frontlivrodaclasse}
+}
+
+\DeclareOption{standart}{%
+\input{fronthedra}
+}
+
+\DeclareOption{conselho}{%
+  \newcommand{\conselho}{\vspace{-2pt}\hspace{-6pt}\mbox{}\begin{tabular}{ll}
+  \textbf{corpo editorial} 
+  \input{frontconselho}        
+  \end{tabular}}}
+\DeclareOption{bolso}{\renewcommand{\TamanhoTitulo}{\LARGE}}
+\DeclareOption{sempart}{\renewcommand{\part}[1]{}}
+\DeclareOption{semsumario}{\renewcommand{\sumario}{\relax}}
+\DeclareOption{sempublicidade}{\renewcommand{\publicidade}{\relax}}
+\DeclareOption{semsumario}{\renewcommand{\sumario}{\ifdef{\titulo}{\part{\titulo}{}}}}
+
+\ProcessOptions

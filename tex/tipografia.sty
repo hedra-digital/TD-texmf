@@ -1,0 +1,251 @@
+% Opcoes: pdftex, xetex, <nome de fontes>
+\RequirePackage{lettrine}
+\RequirePackage{ulem}
+\RequirePackage{comment,lipsum}
+\RequirePackage{adforn}
+\RequirePackage{hifensextras}
+\RequirePackage[para*]{manyfoot}
+\RequirePackage[stable,bottom,multiple]{footmisc}
+\RequirePackage{textcase}
+\RequirePackage{etoolbox}
+\RequirePackage{xifthen}
+
+%\RequirePackage[raggedright]{titlesec}
+%\renewcommand\foottextfont{\Large\ifdef{\fontespecial}{\fontespecial}{}}
+
+
+\newcommand{\redondo}[1]{{\normalfont\mbox{#1}}}
+\newcommand{\letrasjuntas}[2]{#1\,#2\,}
+\newcommand{\ABR}[1]{#1.~}
+\newcommand{\pags}{p\,}
+
+
+
+% correções nas notas
+  \RequirePackage{footnote}
+  \renewcommand*{\footnoterule}{\vfill
+    \kern 11pt%
+    \hrule width 0.3\columnwidth
+  \kern 11pt}
+
+  %reset das notas
+  \pretocmd{\@schapter}{\setcounter{footnote}{0}}{}{}
+  \pretocmd{\@chapter}{\setcounter{footnote}{0}}{}{}
+
+
+% Notas não vão para o toc
+\newcommand{\footnoteInSectionStyle}[1]{\NoCaseChange{\linespread{1.0}\mbox{}\protect\Footnote{{\Large\protect\raisebox{-3pt}{$^\ast$}}}{#1}}}
+\newcommand\footnoteInSection{\ifx\protect\@typeset@protect\expandafter\footnoteInSectionStyle\else\expandafter\@gobble\fi}
+
+% Epígraph (aceitando notas)
+\newlength\epigraphminimallength
+\AtEndOfClass{
+  %\settowidth\epigraphminimallength{\@epitext}
+  \renewcommand{\epigraph}[2]{
+  \settowidth\epigraphminimallength{#1}
+  \begin{savenotes}\vspace{\beforeepigraphskip}
+  {\epigraphsize\begin{\epigraphflush} 
+  \begin{minipage}{\epigraphwidth}
+    \ifthenelse{\dimtest{\epigraphminimallength}{>=}{\epigraphwidth}}{\@epitext{#1}}{\@epitext{\hfill#1}}
+    %\@epitext{\hfill#1}
+    \vspace{5pt} \@episource{#2}
+    \end{minipage}\end{\epigraphflush}
+    \vspace{\afterepigraphskip}}\end{savenotes}}
+\epigraphtextposition{flushleft}
+\epigraphsourceposition{flushright}
+\epigraphfontsize{\footnotesize}
+\setlength{\epigraphrule}{0pt}
+\setlength{\epigraphwidth}{.7\textwidth}}
+
+
+% Quote 
+% tamanho dentro do hedraquote 
+\newcommand{\hedraquotesize}{\small}
+\newcommand{\hedraquoteauthorsize}{\footnotesize}
+
+
+\renewenvironment{quote}[1][]{%
+	\def\@quoteauthor{#1}%
+	\begin{list}{}{%
+		\setlength{\listparindent}{3ex}%
+		\setlength{\labelsep}{0mm}%
+		\setlength{\leftmargin}{0mm}%
+		\setlength{\rightmargin}{0mm}%
+		\setlength{\topsep}{1ex}
+		\setlength{\partopsep}{0mm}
+		\setlength{\parskip}{0mm}
+		\setlength{\lineskip}{0mm}
+		\setlength{\parsep}{0ex}%
+		}%
+		\hedraquotesize%
+		\item%
+}{%
+	\end{list}%
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%% OPÇÕES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\DeclareOption{chicagofootnotes}{\makeatletter
+  \renewcommand\@makefntext[1]{\frenchspacing 
+    \parindent 1em% 
+    \@thefnmark.~#1}
+    % endnotes
+    \newcommand\enoteformat{\parindent 1em\theenmark.~}    
+  \makeatother}
+
+
+% asterisc 
+%\newcommand{\asterisc}{\vspace{-1ex}\begin{center} ***\vspace{-2ex}\end{center}}
+\newcommand{\asterisc}{\vspace{-1ex}\begin{center} \adforn{47}\end{center}}
+
+%%%%%%%%%%% COMPILADOR: PDFTEX--XETEX %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\DeclareOption{ebook}{\AtEndOfClass{\RequirePackage{ucs}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[english,italian,ngerman,french,russian,brazilian]{babel}
+\DeclareLanguage{brazilian}{pr-BR} % German language ebook
+\newcommand{\port}{\selectlanguage{brazilian}}
+\newcommand{\pt}[1]{\foreignlanguage{brazilian}{#1}}
+\newcommand{\italiano}{\selectlanguage{italian}}
+\newcommand{\alemao}{\selectlanguage{ngerman}}
+\newcommand{\frances}{\selectlanguage{french}}
+\newcommand{\ingles}{\selectlanguage{english}}
+\newcommand{\russo}{\selectlanguage{russian}}
+\newcommand{\letra}[2]{\lettrine[lines=3,nindent=-.1mm,findent=2mm]{#1}{#2}}
+\renewcommand{\footnoteInSection}[1]{[Nota: \emph{#1}]}
+\defineshorthand{"-}{\discretionary{-}{-}{-}} 
+\renewcommand{\asterisc}{\begin{center} *\,*\,* \end{center}}
+\renewcommand{\subsection}[1]{\textsc{#1}:\quad}
+\newcommand{\gr}[1]{#1}
+\def\pgfsysdriver{pgfsys-tex4ht.def}
+\newcommand{\chapterspecial}[3]{%
+      \chapter[#1, por #3]%
+    {#1. {#2}}}%
+    \newcommand{\paginabranca}{}
+    \newcommand{\hedramarkboth}[2]{}
+    \newcommand{\EP}{}
+    \newcommand{\qb}{}
+    \newcommand{\ai}{ª}
+    \newcommand{\oi}{º}
+    \newcommand{\sectionitem}{***}
+    \renewcommand{\footnoteInSection}[1]{\footnote{#1}}
+  \newenvironment{hedraquote}{\begin{quote}}{\end{quote}}
+}}
+
+\DeclareOption{pdftex}{\AtEndOfClass{\RequirePackage{ucs}
+\RequirePackage[protrusion=true,expansion]{microtype}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[LGR,T1,T2A]{fontenc}
+\RequirePackage[polutonikogreek,english,italian,ngerman,french,russian,brazilian]{babel}
+%\RequirePackage[adobe-utopia]{mathdesign}
+\newcommand{\port}{\selectlanguage{brazilian}}
+\newcommand{\pt}[1]{\foreignlanguage{brazilian}{#1}}
+\newcommand{\italiano}{\selectlanguage{italian}}
+\newcommand{\alemao}{\selectlanguage{ngerman}}
+\newcommand{\frances}{\selectlanguage{french}}
+\newcommand{\ingles}{\selectlanguage{english}}
+\newcommand{\russo}{\selectlanguage{russian}}
+
+\RequirePackage{gfsporson}
+\newcommand{\grego}{\selectlanguage{polutonikogreek}\fontencoding{LGR}\fontfamily{porson}\selectfont}
+\newcommand{\gr}[1]{\foreignlanguage{polutonikogreek}{\textporson{#1}}}
+\newcommand{\testegrego}{\gr{%
+    μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος\\
+    οὐλομένην, ἣ μυρί᾽ Ἀχαιοῖς ἄλγε᾽ ἔθηκε,\\
+    πολλὰς δ᾽ ἰφθίμους ψυχὰς Ἄϊδι προΐαψεν\\
+    ἡρώων, αὐτοὺς δὲ ἑλώρια τεῦχε κύνεσσιν\\
+    οἰωνοῖσί τε πᾶσι, Διὸς δ᾽ ἐτελείετο βουλή,\\
+    ἐξ οὗ δὴ τὰ πρῶτα διαστήτην ἐρίσαντε}…\\}
+%% chinês
+\RequirePackage{CJKutf8}
+\newcommand{\chin}[1]{\begin{CJK*}{UTF8}{bsmi}%
+    #1
+    \end{CJK*}}
+\newenvironment{chines}{\begin{CJK*}{UTF8}{bsmi}\parindent0pt}{\end{CJK*}}
+  \newcommand{\rubrica}[2]{\begingroup\addcontentsline{toc}{section}{#1}\hfill\footnotesize$[$\quad\thesection #1 | #2\endgroup}
+    \newcommand{\testechines}{\chin{道德經}}
+%% russo
+\newcommand{\rus}[1]{\foreignlanguage{russian}{#1}}
+\newcommand{\letra}[2]{\lettrine[lines=3,nindent=-.1mm,findent=2mm]{#1}{#2}}
+\defineshorthand{"-}{\discretionary{-}{-}{-}} 
+}}
+
+\DeclareOption{xetex}{\AtEndOfClass{%
+\RequirePackage[polutonikogreek,english,italian,ngerman,french,russian,brazilian]{babel}
+\RequirePackage[protrusion=true,final]{microtype}
+\RequirePackage{fontspec}
+%\RequirePackage{luatextra}
+\newfontfeature{Microtype}{protrusion=default, expansion=default}
+\defaultfontfeatures{Microtype}
+\RequirePackage{xunicode}
+%\RequirePackage{polyglossia}
+%\setmainlanguage{portuges}
+\newcommand{\port}{\selectlanguage{brazilian}}
+\newcommand{\pt}[1]{\foreignlanguage{brazilian}{#1}}
+\newcommand{\Italiano}{\selectlanguage{italian}}
+\newcommand{\Alemao}{\selectlanguage{ngerman}}
+%\newcommand{\alemao}{\foreignlanguage{ngerman}{#1}}
+\newcommand{\Frances}{\selectlanguage{french}}
+\newcommand{\Ingles}{\selectlanguage{english}}
+\newcommand{\Russo}{\selectlanguage{russian}}
+\newcommand{\gr}[1]{#1}
+%\defaultfontfeatures{Ligatures=TeX}        Conflito com Microtype
+\setmainfont[Ligatures=TeX,Numbers=OldStyle]{Linux Libertine O}
+%\setmainfont[Ligatures=TeX,Numbers=OldStyle]{Charis SIL}
+%% translineação
+\newcommand{\letra}[2]{\lettrine[lines=3,nindent=-.1mm,findent=2mm]{#1}{#2}}
+\defineshorthand{"-}{\discretionary{-}{-}{-}} 
+\newcommand{\quebra}{\linebreak}
+\newfontfamily\china{WenQuanYi Micro Hei}
+\newcommand{\chin}[1]{{\normalfont\china #1}}
+\newcommand{\testechines}{\chin{道德經}}
+}}
+
+%%%%%%%%%%% FONTES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% pdflatex
+\DeclareOption{charter}{\AtEndOfClass{\RequirePackage[bitstream-charter]{mathdesign}}}
+\DeclareOption{times}{\AtEndOfClass{\RequirePackage{times}}}
+\DeclareOption{dejavu}{\AtEndOfClass{\RequirePackage[bitstream-charter]{mathdesign}}}
+\DeclareOption{didot}{\AtEndOfClass{\RequirePackage{gfsdidot}}}
+
+\DeclareOption{bookman}{\AtEndOfClass{\RequirePackage{bookman}}}
+\DeclareOption{helvet}{\AtEndOfClass{\RequirePackage[scaled]{helvet}}}
+\DeclareOption{utopia}{\AtEndOfClass{\RequirePackage[adobe-utopia]{mathdesign}}}
+\DeclareOption{txfonts}{\AtEndOfClass{\RequirePackage{txfonts}}}
+
+% xetex
+\DeclareOption{libertine}{\AtEndOfClass{\setmainfont{Linux Libertine O}}}
+\DeclareOption{times}{\AtEndOfClass{\setmainfont[Ligatures=TeX]{Times New Roman}}}
+\DeclareOption{walbaumnova}{\AtEndOfClass{\setmainfont[Ligatures=TeX]{Walbaum}[SmallCapsFont={WalbaumOriginalSmc}]}}
+%\DeclareOption{charis}{\AtEndOfClass{\setmainfont[Ligatures=TeX,Numbers=OldStyle]{Charis SIL}}}
+%\DeclareOption{dejavucondensed}{\AtEndOfClass{\setmainfont[Ligatures=TeX,Numbers=OldStyle]{DejaVu Serif Condensed}}}
+\DeclareOption{arial}{\AtEndOfClass{\setmainfont[Ligatures=TeX]{Arial}}}
+\DeclareOption{georgia}{\AtEndOfClass{\setmainfont[Ligatures=TeX,Numbers=OldStyle]{Georgia}}}
+\DeclareOption{swiftneue}{\AtEndOfClass{\setmainfont[Ligatures=TeX]{Swift Neue LT Pro}}} % Mameluco
+
+\DeclareOption{chines}{\newenvironment{chines}{\begingroup\china\parindent0pt}{\endgroup}
+}
+
+\DeclareOption{notasdefim}{%
+\AtEndOfClass{\RequirePackage{endnotes}
+\def\notesname{Notas}
+\def\enoteheading{\chapter{\notesname}}%
+\let\footnote\endnote
+}}
+
+\DeclareOption{fontimpact}{\AtEndOfClass{\newfontfamily\fontespecial{Impact}}}
+\DeclareOption{Biolinum}{\AtEndOfClass{\newfontfamily\fontespecial{Linux Biolinum O}}}
+\DeclareOption{noendpart}{\renewcommand{\@endpart}{\vspace{.60\textheight}\pagebreak}}          
+
+\ProcessOptions
+
