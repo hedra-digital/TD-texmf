@@ -170,6 +170,21 @@
   \makeoddhead{estilo}{}{}{}
 }
 
+
+\DeclareOption{almeida}{%
+\pagestyle{estilo}
+\headstyles{estilo}
+\renewcommand*{\chapnamefont}{\centering\large}%
+\renewcommand*{\chapnumfont}{\centering\large}%
+\renewcommand*{\chaptitlefont}{\centering\large\ifdef{\fontespecial}{\fontespecial}{}}%
+\makeevenhead{estilo}{}{}{}
+\makeoddhead{estilo}{}{}{}
+\makeevenfoot{estilo}{\addfontfeature{Numbers={Lining}}\footnotesize\thepage \quad \scshape\MakeLowercase{\titulo}}{}{}
+\makeoddfoot{estilo}{}{}{\footnotesize\addfontfeature{Numbers={Lining}}\scshape\MakeLowercase{\autor} \quad \thepage}
+\makeevenfoot{plain}{}{\addfontfeature{Numbers={Lining}}\footnotesize\thepage}{}
+\makeoddfoot{plain}{}{\addfontfeature{Numbers={Lining}}\footnotesize\thepage}{}
+}
+
 \DeclareOption{baruch}{%
 \pagestyle{estilo}
 \headstyles{estilo}}

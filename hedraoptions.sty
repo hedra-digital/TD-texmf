@@ -25,6 +25,19 @@
   %\setheaderspaces{8mm}{*}{0.16}
 }
 
+\DeclareOption{almeida}{%
+  \setbinding{5mm}
+  \stockaiv 
+  \settrimmedsize{210mm}{137mm}{*}
+  \settypeblocksize{*}{90mm}{1.7}
+  \setlrmargins{*}{*}{1.2}
+  \setulmargins{*}{*}{1.7}
+%  \setheadfoot{5mm}{10mm}
+%  \setheaderspaces{*}{*}{0}
+  \headsep=5mm
+}
+
+
 \DeclareOption{16x23}{%
   \setbinding{5mm}
   \stockaiv 
@@ -38,11 +51,13 @@
   %\setheaderspaces{8mm}{*}{0.16}
 }
 
+
+
 \DeclareOption{14x21}{%
   \setbinding{3mm}
   \stockaiv 
   %\setstocksize{210mm}{140mm}{*}
-  \settrimmedsize{210mm}{140mm}{*}
+  \settrimmedsize{210mm}{135mm}{*}
   \settypeblocksize{172mm}{109mm}{*}
   \setlrmargins{12mm}{*}{1}
   \setulmargins{14mm}{*}{1}
@@ -118,15 +133,12 @@
   %\headsep=5pt
 }
 
-
 \newcommand{\marcadecorte}{}
 \DeclareOption{trimframe}{\renewcommand{\marcadecorte}{\trimFrame}}
 \DeclareOption{sembinding}{\setbinding{0mm}}
 \DeclareOption{semcabeco}{
       \setulmargins{*}{*}{1.9}
       \headsep=0pt}
-
-%\DeclareOption{trimframe}{\trimFrame}
 
 \ProcessOptions
 
