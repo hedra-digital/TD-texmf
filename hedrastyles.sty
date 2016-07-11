@@ -179,10 +179,14 @@
 \renewcommand*{\chaptitlefont}{\centering\large\ifdef{\fontespecial}{\fontespecial}{}}%
 \makeevenhead{estilo}{}{}{}
 \makeoddhead{estilo}{}{}{}
-\makeevenfoot{estilo}{\addfontfeature{Numbers={Lining}}\footnotesize\thepage \quad \scshape\MakeLowercase{\titulo}}{}{}
-\makeoddfoot{estilo}{}{}{\footnotesize\addfontfeature{Numbers={Lining}}\scshape\MakeLowercase{\autor} \quad \thepage}
+\makeevenfoot{estilo}{}{\addfontfeature{Numbers={Lining}}\footnotesize\thepage}{}
+\makeoddfoot{estilo}{}{\footnotesize\addfontfeature{Numbers={Lining}}\scshape\thepage}{}
 \makeevenfoot{plain}{}{\addfontfeature{Numbers={Lining}}\footnotesize\thepage}{}
 \makeoddfoot{plain}{}{\addfontfeature{Numbers={Lining}}\footnotesize\thepage}{}
+%\makeevenfoot{estilo}{\addfontfeature{Numbers={Lining}}\footnotesize\thepage \quad \scshape\MakeLowercase{\titulo}}{}{}
+%\makeoddfoot{estilo}{}{}{\footnotesize\addfontfeature{Numbers={Lining}}\scshape\MakeLowercase{\autor} \quad \thepage}
+%\makeevenfoot{plain}{}{\addfontfeature{Numbers={Lining}}\footnotesize\thepage}{}
+%\makeoddfoot{plain}{}{\addfontfeature{Numbers={Lining}}\footnotesize\thepage}{}
 }
 
 \DeclareOption{baruch}{%
