@@ -85,7 +85,16 @@
           \caption{#1}
         \end{figure}
       }}{\alerta}}
-  \renewcommand{\imagemgrande}[2]{
+
+
+\newcommand{\imagemgrandeolho}[2]{%
+  \captionsetup{margin={30pt,0pt},
+                labelformat=empty,
+                font={Large,it},
+                labelfont=bf,
+                hangindent=0pt,
+                skip=5pt,
+                justification=raggedright}
     \IfFileExists{#2}{%
       \settoheight\imageheight{\includegraphics{#2}}%
       \settowidth\imagewidth{\includegraphics{#2}}%
@@ -130,8 +139,12 @@
           \vspace{-13pt} % Correção de distorção para homogeneizar \caption nos três tamanhos
         \caption{#1}
           \fi
+          \rule{\textwidth}{3pt}
         \end{figure}
       }}{\alerta}}
+
+    
+
 }
 
 \DeclareOption{seguro}{\let\imagemgrande\imagemgrandev}

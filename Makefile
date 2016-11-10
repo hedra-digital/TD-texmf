@@ -39,8 +39,6 @@ update-pandoc:
 	# if you make it using deploy account, just sudo cp /home/deploy/.cabal/bin/pandoc /usr/bin/pandoc 
 	sudo cp ~/.cabal/bin/pandoc /usr/bin/pandoc 
 	sudo chmod +rx /usr/bin/pandoc #no need if you using deploy account
-amazon-widbook:
-	ssh ubuntu@184.73.101.57
 fonts-link:
 	ln -s ~/texmf/tex/fonts ~/.fonts
 	fc-cache -f -v

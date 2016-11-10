@@ -1,2 +1,0 @@
-#! /bin/sh
-exec texlua `kpsewhich tex4ebook.lua` $@
