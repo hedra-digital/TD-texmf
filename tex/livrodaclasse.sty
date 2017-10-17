@@ -1,0 +1,145 @@
+\renewcommand{\newline}{}
+
+\RequirePackage{indentfirst}
+\RequirePackage{textcase}
+\RequirePackage{lastpage}
+\RequirePackage{comment}
+\RequirePackage{graphicx}
+\RequirePackage{wrapfig}
+\RequirePackage{textcomp}
+\RequirePackage{floatpag}
+\RequirePackage{lipsum}
+
+\RequirePackage{fourier}
+\RequirePackage[protrusion=true,expansion]{microtype}
+\RequirePackage{ucs}
+\RequirePackage[utf8x]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[brazilian]{babel}
+
+\RequirePackage{hedralogo}
+\RequirePackage{hedrageral}
+\RequirePackage{hedraextra}
+
+\AtBeginDocument{%
+\makeatletter
+\selectlanguage{brazilian}
+\setcounter{tocdepth}{0}
+\setcounter{secnumdepth}{-2}
+\makeatother
+}%
+
+\parskip0pt
+
+% Sumário %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\cftparskip}{0mm}
+\renewcommand{\cftchapterdotsep}{4.5}
+\renewcommand{\cftchapterleader}{\normalfont\cftdotfill{\@nameuse{cftchapterdotsep}}}
+\renewcommand{\cftpartfont}{\large}
+\renewcommand{\cftpartformatpnum}{\large}
+\renewcommand{\cftchapterfont}{\normalsize}
+\renewcommand{\cftchapterformatpnum}{\normalsize}
+\renewcommand{\cftbeforechapterskip}{.2em}
+\renewcommand{\cftbeforepartskip}{1.2em}
+\renewcommand{\cftsectionindent}{0ex}
+\renewcommand{\cftsectionfont}{\normalsize}
+\renewcommand{\cftsectionformatpnum}{\normalsize}
+
+
+% Comandos %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\alerta}{\noindent 
+	\includegraphics[width=0.2\textwidth]{alert.png}\quad
+	\begin{minipage}{.8\textwidth}\textit{% 
+	A imagem selecionada para este lugar não pode ser reproduzida. 
+	Localize-a nos textos, edite o texto e troque a imagem.}
+	\end{minipage}\medskip\par\noindent \dotfill\par}
+\newcommand{\imagemgrande}[2]{\IfFileExists{#2}{%
+      \begin{figure}[h]%
+      %\caption{#1}%
+      \fbox{\includegraphics[width=\textwidth]{#2}}%
+      \end{figure}%
+}{\alerta}}
+\newcommand{\imagemmedia}[2]{\IfFileExists{#2}{%
+      \begin{figure}[h]%
+      \begin{center}%
+      %\caption{#1}%
+      \fbox{\includegraphics[width=.7\textwidth]{#2}}\clearpage%
+      \end{center}%
+      \end{figure}%
+}{\alerta}}
+\newcommand{\imagempequena}[2]{\IfFileExists{#2}{%
+      \begin{wrapfigure}{O}{.52\textwidth}
+      \fbox{\includegraphics[width=.5\textwidth]{#2}}%
+      \end{wrapfigure}\par
+}{\alerta}}
+
+\newenvironment{nucleo}[3]{\chapter[#1,por #2]{#1}\hfill\emph{#2}}{\par}
+
+\newcommand{\logos}{\includegraphics[width=4cm]{\logoescola}\quad\logoum\quad{\normalsize\ \cidade, \ano}\par}
+% Página %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand*{\isohedra}[1][9]{%
+  \spinemargin=\paperwidth
+  \divide\spinemargin #1\relax
+  \uppermargin=\paperheight
+  \divide\uppermargin #1\relax
+  \setlrmarginsandblock{\spinemargin}{*}{1.4}
+  \setulmarginsandblock{\uppermargin}{*}{1.4}}
+\setbinding{5mm}
+\stockaiv 
+%\setstocksize{23cm}{16cm}
+\settrimmedsize{23cm}{16cm}{*}
+\settypeblocksize{230mm}{160mm}{*}
+%\setbinding{8mm}
+%\setlrmargins{20mm}{*}{1.25}
+%\setulmargins{20mm}{*}{1.25}
+%\setheadfoot{15mm}{10mm}
+%\setheaderspaces{0mm}{*}{0}
+%\headsep=5mm
+\isohedra
+\setlength{\trimtop}{3cm}
+\setlength{\trimedge}{\stockwidth} 
+\addtolength{\trimedge}{-\paperwidth}
+\setlength{\trimedge}{0.5\trimedge}
+\quarkmarks
+%\trimFrame
+\checkandfixthelayout
+\tolerance=1000
+\hyphenpenalty=5000
+\emergencystretch=1pc
+\lefthyphenmin=2
+\righthyphenmin=2
+\widowpenalty=10000
+\clubpenalty=10000
+\brokenpenalty=9999
+%\raggedbottom
+%% Opções  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\DeclareOption{fundamental}{%
+%          \RequirePackage{times}%              % Fonte
+%          \RequirePackage{ucs}%
+%          \RequirePackage[utf8x]{inputenc}%
+%          \RequirePackage[T1]{fontenc}
+           \setbinding{5mm}                     % Tamanho da mancha
+           \stockaiv 
+           \settrimmedsize{210mm}{140mm}{*}
+           \settypeblocksize{230mm}{160mm}{*}
+           \isohedra
+           \setlength{\trimtop}{3cm}
+           \setlength{\trimedge}{\stockwidth} 
+           \addtolength{\trimedge}{-\paperwidth}
+           \setlength{\trimedge}{0.5\trimedge}
+           \trimFrame
+           \checkandfixthelayout
+           \renewcommand{\logos}{{\includegraphics[width=3.5cm]{\logoescola}\ \logoum\quad{\normalsize\ \cidade, \ano}\par}}
+           }
+\ProcessOptions\relax
+
+
+\makeatletter
+  \let\ps@headings\ps@plain
+  \setlength{\afterchapskip}{8mm\@plus2mm\@minus1mm}%
+\makeatother 
+
+
+\newcommand{\autoria}[1]{\hfill #1 \par\medskip }

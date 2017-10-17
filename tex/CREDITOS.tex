@@ -1,0 +1,45 @@
+\begingroup\pagestyle{empty}
+%\begin{blackpages}
+    % apagar o comentário abaixo para incluir o selo Livro do professor
+	\maketitle%[livrodoprofessor]
+	\begin{techpage}{5cm}
+		\vspace{-2cm}
+  \senulo{\copyrightlivro}{\putline{Copyright}{\copyrightlivro{} \ano}}
+  \senulo{\copyrightorganizacao}{\putline{$^\copyright$}{\copyrightorganizacao}}
+  \senulo{\copyrighttraducao}{\putline{Tradução$^\copyright$}{\copyrighttraducao}}
+  \senulo{\copyrightintroducao}{\putline{Introdução$^\copyright$}{\copyrightintroducao}}
+  \senulo{\titulooriginal}{\putline{Título original}{\titulooriginal}}
+  \senulo{\edicaoconsultada}{\putline{Edição consultada}{\edicaoconsultada}}
+  \senulo{\primeiraedicao}{\putline{Primeira edição}{\primeiraedicao}}
+	\senulo{\indicacao}{\putline{Indicação}{\indicacao}}
+
+  %		\putline{Agradecimento}
+		\putline{Corpo editorial}{
+			Adriano Scatolin,\\
+			Bruno Costa,
+			Caio Gagliardi,\\
+			Fábio Mantegari,
+			Felipe C.~Pedro,\\
+			Iuri Pereira,
+			Jorge Sallum,\\
+			Oliver Tolle,
+ 		   Ricardo Musse,\\
+			Ricardo Valle
+		}
+		\ \\
+		
+    %\putline{ficha}{\imagemficha}
+
+		\direitos
+		\dadoseditora
+		\depositolegal
+	\end{techpage}
+	\endgroup
+
+
+	\begin{frontispiciopage}{4cm}{}	\thispagestyle{empty}
+   % \ifthenelse{\equal{\tradutor}{\introdutor}}{\putline{Organização e tradução}{\textsc{\tradutor}}}{%
+      \senulo{\introdutor}{\putline{Introdução}{\textsc{\introdutor}}}
+      \senulo{\tradutor}{\putline{Tradução}{\textsc{\tradutor}}}
+   % } 
+	\end{frontispiciopage}

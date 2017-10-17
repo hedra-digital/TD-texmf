@@ -1,0 +1,165 @@
+\DeclareOption{20x21}{%
+  \setbinding{5mm}
+  %\stockaiv 
+  \setstocksize{250mm}{230mm}
+  \settrimmedsize{210mm}{200mm}{*}
+  %\settypeblocksize{*}{115mm}{1.6}
+  \isopage[13]
+  \setlrmargins{16mm}{*}{1}
+  \setulmargins{24mm}{*}{1}
+  \setheadfoot{10mm}{12mm}
+  %\setheaderspaces{8mm}{*}{0.16}
+}
+
+
+\DeclareOption{vieira}{%
+  \setbinding{9mm}
+  \stockaiv 
+  %\setstocksize{230mm}{160mm}
+  \settrimmedsize{230mm}{160mm}{*}
+  \isopage[13]
+  %\settypeblocksize{*}{115mm}{1.6}
+%  \setlrmargins{*}{*}{1.6}
+%  \setulmargins{*}{*}{0.6}
+  \setheadfoot{10mm}{12mm}
+  %\setheaderspaces{8mm}{*}{0.16}
+}
+
+\DeclareOption{almeida}{%
+  \setbinding{5mm}
+  \stockaiv 
+  \settrimmedsize{210mm}{137mm}{*}
+  \settypeblocksize{*}{90mm}{1.7}
+  \setlrmargins{*}{*}{1.2}
+  \setulmargins{*}{*}{1.7}
+%  \setheadfoot{5mm}{10mm}
+%  \setheaderspaces{*}{*}{0}
+  \headsep=5mm
+  \raggedbottom
+}
+
+
+\DeclareOption{16x23}{%
+  \setbinding{5mm}
+  \stockaiv 
+  %\setstocksize{230mm}{160mm}
+  \settrimmedsize{230mm}{160mm}{*}
+  %\settypeblocksize{*}{115mm}{1.6}
+  \isopage[13]
+  \setlrmargins{16mm}{*}{1}
+  \setulmargins{24mm}{*}{1}
+  \setheadfoot{10mm}{12mm}
+  %\setheaderspaces{8mm}{*}{0.16}
+}
+
+
+
+\DeclareOption{14x21}{%
+  \setbinding{3mm}
+  \stockaiv 
+  %\setstocksize{210mm}{140mm}{*}
+  \settrimmedsize{210mm}{138mm}{*}
+  \settypeblocksize{172mm}{109mm}{*}
+  \setlrmargins{12mm}{*}{1}
+  \setulmargins{14mm}{*}{1}
+  \setheadfoot{5mm}{10mm}
+  \setheaderspaces{0mm}{*}{0}
+  \headsep=2mm
+}
+
+\DeclareOption{14x22}{%
+  \setbinding{3mm}
+  \stockaiv 
+  %\setstocksize{210mm}{140mm}{*}
+  \settrimmedsize{220mm}{140mm}{*}
+  \settypeblocksize{176mm}{109mm}{*}
+  \setlrmargins{12mm}{*}{1}
+  \setulmargins{14mm}{*}{1}
+  \setheadfoot{5mm}{10mm}
+  \setheaderspaces{0mm}{*}{0}
+  \headsep=2mm
+}
+
+\DeclareOption{14x21b}{%
+  \setbinding{3mm}
+  \stockaiv 
+  %\setstocksize{210mm}{140mm}{*}
+  \settrimmedsize{210mm}{140mm}{*}
+  \settypeblocksize{165mm}{100mm}{*}
+  \setlrmargins{16mm}{*}{1}
+  \setulmargins{14mm}{*}{1}
+  \setheadfoot{5mm}{10mm}
+  \setheaderspaces{0mm}{*}{0}
+  \headsep=2mm
+}
+
+\DeclareOption{largepost}{%
+  \setbinding{3mm}
+  \stockaiv 
+  \settrimmedsize{210mm}{133mm}{*}
+  \settypeblocksize{*}{97mm}{1.7}
+  \setlrmargins{*}{*}{1.2}
+  \setulmargins{*}{*}{1.7}
+%  \setheadfoot{5mm}{10mm}
+%  \setheaderspaces{*}{*}{0}
+  \headsep=5mm
+}
+
+\DeclareOption{bolso}{%
+  \setbinding{3mm}
+  \stockaiv 
+  \settrimmedsize{175mm}{113mm}{*}
+  \settypeblocksize{*}{86mm}{1.7}
+  \setlrmargins{*}{*}{1.2}
+  \setulmargins{*}{*}{1.7}
+%  \setheadfoot{5mm}{10mm}
+  \setheaderspaces{*}{*}{0}
+  \headsep=5pt
+}
+
+\DeclareOption{whitman}{%
+  \setbinding{5mm}
+  \stockaiv 
+  \settrimmedsize{260mm}{170mm}{*}
+  %\settypeblocksize{*}{86mm}{1.7}
+  %\setheadfoot{5mm}{10mm}
+  \isopage[13]
+  \setlrmargins{*}{18.5mm}{1.5}
+  \setulmargins{29mm}{*}{1.5}
+  \setlength{\trimtop}{20mm}
+  \setlength{\trimedge}{\stockwidth} 
+  \addtolength{\trimedge}{-\paperwidth}
+  \setlength{\trimedge}{0.5\trimedge}
+  %\setheaderspaces{*}{*}{0}
+  %\headsep=5pt
+}
+
+\newcommand{\marcadecorte}{}
+\DeclareOption{trimframe}{\renewcommand{\marcadecorte}{\trimFrame}}
+\DeclareOption{sembinding}{\setbinding{0mm}}
+\DeclareOption{semcabeco}{
+      \setulmargins{*}{*}{1.9}
+      \headsep=0pt}
+
+\ProcessOptions
+
+\setlength{\trimtop}{20mm}
+\setlength{\trimedge}{\stockwidth} 
+\addtolength{\trimedge}{-\paperwidth}
+\setlength{\trimedge}{0.5\trimedge}
+\quarkmarks
+\marcadecorte
+
+
+\setmarginnotes{0pt}{.25\textwidth}{-3cm}
+
+\checkandfixthelayout
+%\tolerance=500
+%\emergencystretch=1pc
+%\lefthyphenmin=2
+%\righthyphenmin=2
+%\widowpenalty=10000
+%\clubpenalty=1000
+%\brokenpenalty=9999
+%\raggedbottom
+

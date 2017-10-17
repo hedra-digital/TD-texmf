@@ -1,0 +1,28 @@
+\newcommand{\linhalayout}[2]{{\tiny\textbf{#1}\quad#2\par}}
+\newcommand{\fichalayout}[1]{\includegraphics[width=.8\textwidth]{#1}}
+\newcommand{\linha}[2]{\ifdef{#2}{\linhalayout{#1}{#2}}{}}
+\newcommand{\tipopadrao}{Libertine}
+\newcommand{\DistanciaImagemFront}{\vspace*{.3\textwidth}}
+\newcommand{\LarguraFront}{\textwidth}
+\newcommand{\TamanhoTitulo}{\Huge}
+\newcommand{\titulagemfront}{\IfFileExists{front.png}{\DistanciaImagemFront\includegraphics[width=\LarguraFront]{front.png}}%
+  {\begingroup\vspace*{.12\textheight} 
+                      \TamanhoTitulo \baselineskip=.67\baselineskip 
+                        \MakeTextLowercase{\textsc{\titulo}} 
+                       \par
+                   \ifdef{\subtit}{\smaller[3] \textit{\subtit}\par\medskip}{}\endgroup}}
+
+\newcommand{\titulagem}{{\vspace*{.12\textheight} 
+                      \TamanhoTitulo \baselineskip=.67\baselineskip 
+                        \MakeTextLowercase{\textsc{\titulo}} 
+                       \par
+                   \ifdef{\subtit}{\smaller[3] \textit{\subtit}\par\medskip}{}}}
+
+\newcommand{\sumario}{\begingroup\mbox{}\pagestyle{empty}\pagebreak\ifodd\thepage\paginabranca\fi
+                    \addtocontents{toc}{\hyphenpenalty=10000\protect\thispagestyle{empty}}
+                    \def\contentsname{Sumário}
+                    \tableofcontents*\clearpage\endgroup}
+\newcommand{\publicidade}{\pagebreak\pagestyle{empty}\parindent0pt
+\include{PUBLICIDADE}}
+
+

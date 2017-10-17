@@ -1,0 +1,87 @@
+\RequirePackage{titletoc}
+\RequirePackage{adforn}
+\RequirePackage{relsize}
+
+
+% Definições de disposição de autores e subtítulos
+\newcommand{\tocquebratitautor}{, por}
+\newcommand{\chapterspecial}[3]{%
+  \chapter[#1\ifx#3\relax\else\emph{\tocquebratitautor{} #3}\fi]%
+      {#1\ifx#2\relax\else\subtitulo{#2}\fi}%
+  \ifx#3\relax\else\autorcapitulo{#3}\fi
+\markboth{#1}{#3}}
+
+    \DeclareOption{sumarioautorlinhadebaixo}{\renewcommand\tocquebratitautor{\hfill\break\smaller[2]}}
+
+\newcommand{\pontinhos}{.}
+
+\DeclareOption{standart}{%
+\titlecontents{part}
+[0pt]                                               			% left margin
+{\vspace{3ex}}			%
+{\contentsmargin{0pt}                               			% numbered entry format
+  \MakeTextLowercase{\thecontentslabel}\enspace			%
+    \large\scshape\MakeTextLowercase}
+{\contentsmargin{0pt}\scshape\large\MakeTextLowercase}                 			% unnumbered entry format
+{\titlerule*[.8pc]{\pontinhos}\contentspage}                 			% filler-page format (e.g dots)
+[\vspace{7pt}]                                       			% below code (e.g vertical space)
+
+\titlecontents{chapter}
+[0pt]                                               			% left margin
+{}			%
+{\contentsmargin{0pt}                               			% numbered entry format
+    \thecontentslabel\enspace			%
+    \small\scshape\MakeTextLowercase}
+{\contentsmargin{0pt}\small}                    			% unnumbered entry format
+{\titlerule*[.5pc]{\pontinhos}\contentspage}                 			% filler-page format (e.g dots)
+[\vspace{5pt}]                                       			% below code (e.g vertical space)
+
+
+\titlecontents{section}
+[0pt]                                               			% left margin
+{}			%
+{\contentsmargin{0pt}                               			% numbered entry format
+    \thecontentslabel\enspace			%
+    \small\scshape\MakeTextLowercase}
+{\contentsmargin{0pt}\small}                    			% unnumbered entry format
+{\titlerule*[.5pc]{}\small\contentspage}                 			% filler-page format (e.g dots)
+[\vspace{3pt}]                                       			% below code (e.g vertical space)
+
+
+\titlecontents{subsection}
+[5pt]                                               			% left margin
+{}			%
+{\contentsmargin{0pt}                               			% numbered entry format
+    \thecontentslabel\enspace			%
+    \small\scshape\MakeTextLowercase}
+{\contentsmargin{0pt}\small}                    			% unnumbered entry format
+{\titlerule*[.5pc]{}\small\contentspage}                 			% filler-page format (e.g dots)
+[\vspace{3pt}]                                       			% below code (e.g vertical space)
+
+
+\titlecontents{paragraph}
+[5pt]                                               			% left margin
+{}			%
+{\contentsmargin{0pt}                               			% numbered entry format
+    \thecontentslabel\enspace			%
+    \small\scshape\MakeTextLowercase}
+{\contentsmargin{0pt}\itshape\small}                    			% unnumbered entry format
+{\titlerule*[.5pc]{}\small\contentspage}                 			% filler-page format (e.g dots)
+[\vspace{3pt}]% below code (e.g vertical space)
+}
+
+
+\setcounter{tocdepth}{0}     % amplitude da presença das partes no índice
+\setcounter{secnumdepth}{-2} % amplitude da numeração das partes
+
+\DeclareOption{capitulosnosumario}{%
+  \setcounter{tocdepth}{1}     
+}
+
+\DeclareOption{capitulosnumerados}{%
+\setcounter{secnumdepth}{0} % amplitude da numeração das partes
+}
+
+\DeclareOption{sempontinhos}{\renewcommand{\pontinhos}{}}
+
+\ProcessOptions
