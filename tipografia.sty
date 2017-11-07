@@ -104,8 +104,8 @@
 
 % asterisc 
 %\newcommand{\asterisc}{\vspace{-1ex}\begin{center} ***\vspace{-2ex}\end{center}}
-\newcommand{\asterisc}{\vspace{-1ex}\begin{center} \adforn{47}\end{center}}
-
+%\newcommand{\asterisc}{\vspace{-1ex}\begin{center} \adforn{47}\end{center}}
+\newcommand{\asterisc}{\begin{center}\raisebox{-3pt}{*\,*\,*}\end{center}}
 %%%%%%%%%%% COMPILADOR: PDFTEX--XETEX %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -232,7 +232,7 @@
 \DeclareOption{arial}{\AtEndOfClass{\setmainfont[Ligatures=TeX]{Arial}}}
 \DeclareOption{georgia}{\AtEndOfClass{\setmainfont[Ligatures=TeX,Numbers=OldStyle]{Georgia}}}
 \DeclareOption{swiftneue}{\AtEndOfClass{\setmainfont[Ligatures=TeX]{Swift Neue LT Pro}}} % Mameluco
-
+\DeclareOption{weiss}{\AtEndOfClass{\setmainfont[Ligatures=TeX]{Weiss}}} %
 \DeclareOption{chines}{\newenvironment{chines}{\begingroup\china\parindent0pt}{\endgroup}
 }
 
