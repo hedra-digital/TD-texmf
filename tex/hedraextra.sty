@@ -39,6 +39,10 @@
 %	\hrule\bigskip
 %\end{minipage}}
 
+% Como inserir special footnotes (*,I,# etc)
+\def\@xfootnote[#1]{%
+  \protected@xdef\@thefnmark{#1}%
+  \@footnotemark\@footnotetext}
 
 % implementações do Verse.sty
 \newcommand{\qb}[1]{\hfil\break\mbox{}\hfill\hbox{\textnormal{[}\,#1}}
