@@ -1,0 +1,140 @@
+\linepenalty=100
+%%%%the penalty for breaking a page after a line within a paragraph
+%%%
+\hyphenpenalty=50
+%%%%the penalty for line breaking at an automatically inserted hyphen
+%%%
+\exhyphenpenalty=50
+%%%%the penalty for line breaking at an explicit hyphen
+%%%
+\binoppenalty=700
+%%%%the penalty for breaking a line at a binary operator
+%%%
+\relpenalty=500
+%%%%the penalty for breaking a line at a relation
+%%%
+\clubpenalty=150
+%%%%extra penalty for breaking after first line of a paragraph
+%%%
+%\widowpenalty=10000
+%%%%extra penalty for breaking before last line of a paragraph
+%%%
+\displaywidowpenalty=50
+%%%%extra penalty for breaking before last line before a display math
+%%%
+\brokenpenalty=100
+%%%%extra penalty for page breaking after a hyphenated line
+%%%
+\predisplaypenalty=10000
+%%%%penalty for breaking before a display
+%%%
+\postdisplaypenalty=0
+%%%%penalty for breaking after a display
+%%%
+\floatingpenalty = 20000
+%%%%penalty for splitting an insertion (can only be split footnote in standard LaTeX)
+%%%%e-tex adds some additional penalties (that are not set by default in LaTeX) but are supported by all three of the major engines
+%%%
+\interlinepenalties = 2 8000 8000
+%%%%%An extension to \interlinepenalty that allows different penalties to be added
+%%%%after each line. It takes a space separated list of numbers as value. If n is
+%%%%positive interlinepenalties n i1... in specifies the penalty to be used after
+%%%%each of the lines in a paragraph, with the last value being repeated as often
+%%%%as needed if the paragraph has more then n lines.
+%%%
+%
+\clubpenalties = 2 8000 600
+%%\clubpenalties
+%%%An extension of \clubpenalty with the same syntax as \interlinepenalties.
+%%
+\widowpenalties = 3 10000 9000 6000 
+%%%An extension of \widowpenalty with the same syntax as \interlinepenalties (lines arecounted backwards from the last line in this case).
+%%
+\displaywidowpenalties = 2 8000 5000 
+%%%An extension of \widowpenalty with the same syntax as \widowpenalties with lines counted backwards from each display math within a paragraph.
+%
+%%XeTeX supports one additional primitive penalty:
+%
+%\XeTeXlinebreakpenalty=0
+%%The full documentation of which is Inter-character linebreak penalty I believe it is the penalty inserted between characters for Asian typesetting which typically doesn't use inter-word spaces.
+%
+%%Other penalties are inserted by the format for example LaTeX defines a count
+%
+%\newcount\interfootnotelinepenalty \interfootnotelinepenalty=100
+%%but locally arranges that \linepenalty is set to this value while setting footnotes.
+%
+%%Similarly article class sets
+%
+%\@lowpenalty   51
+%\@medpenalty  151
+%\@highpenalty 301
+%%which are the values used by \pagebreak[1] ...
+%
+%%\samepage works by setting many of these penalties to "infinite" values:
+%
+%\def\samepage{\interlinepenalty\@M
+%   \postdisplaypenalty\@M
+%   \interdisplaylinepenalty\@M
+%   \@beginparpenalty\@M
+%   \@endparpenalty\@M
+%   \@itempenalty\@M
+%   \@secpenalty\@M
+%   \interfootnotelinepenalty\@M}
+%%Note penalties are not just numeric values they are actual nodes that are
+%%inserted into the horizontal or vertical list. they can be inspected with
+%%\lastpenalty or removed (in some contexts) with \unpenalty so for example
+%%\count0=\lastpenalty will put the value of the penalty (even if it was
+%%automatically inserted) into the count register if the penalty s the last thing
+%%in the current horizontal or vertical list.
+%
+%%For example this bit of LaTeX which tries to insert italic corrections without disturbing the penalties in the horizontal list
+%
+%\def \fix@penalty {%
+%  \ifnum \lastpenalty=\z@
+%    \@@italiccorr
+%  \else
+%    \count@ \lastpenalty
+%    \unpenalty
+%    \@@italiccorr
+%    \penalty \count@
+%  \fi
+%}
+%This is part of all the commands such as \textit that try to insert automatic italic correction.
+
+%Demerits
+
+%The statement above that TeX tries to minimise penalties is in fact a
+%simplification. For line breaking, the actual quantity that is minimised is
+%demerits which is (more or less) the sum of the squares of the penalties
+%associated with the linebreaks in a paragraph and the badness of each line
+%(which is a measure of how much white space has been stretched beyond its
+%specified limits) plus three additional demerit parameters as described below.
+%The exact formula is in the TeXBook, but isn't usually relevant.
+
+%The three demerit parameters and the default values given to them by LaTeX are:
+
+%\doublehyphendemerits=10000
+%Additional demerit added to the paragraph for each pair of consecutive lines ending in a discretionary (typically a hyphen).
+
+%\finalhyphendemerits=5000
+%Additional demerit added if the penultimate line ends with a discretionary.
+
+%\adjdemerits=10000
+%Additional demerit added for pairs of "incompatible" lines (ie a tight line in
+%which white space is squeezed next to a loose line in which white space is
+%stretched.)
+
+%Note, the values of demerit parameters are typically large (they combine with
+%the square of penalty and badness units) also demerits are just a value used in
+%the line breaking calculation. Unlike penalties they do not correspond to nodes
+%that may be manipulated in TeX lists.
+
+
+% Básicas
+\tolerance=500
+\emergencystretch=1pc
+\lefthyphenmin=2
+\righthyphenmin=2
+
+\raggedbottom
+

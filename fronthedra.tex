@@ -16,16 +16,17 @@
 \linha{edição consultada}{\edicaoconsultada}
 \linha{primeira edição}{\primeiraedicao}
 \linha{agradecimentos}{\agradecimentos}
-\linha{indicação}{\indicacao}\smallskip
+\linha{indicação}{\indicacao}
 \linha{edição}{\edicao}
 \linha{coedição}{\coedicao}
 \linha{assistência editorial}{\assistencia}
-\linha{revisão}{\revisao}
 \linha{preparação}{\preparacao}
+\linha{revisão}{\revisao}
 \linha{iconografia}{\iconografia}
 \linha{capa}{\capa}
-\linha{imagem da capa}{\imagemcapa}\smallskip
-\linha{ISBN}{\ISBN}\smallskip
+\linha{imagem da capa}{\imagemcapa}
+\linha{ISBN}{\ISBN}
+\linha{eISBN}{\eISBN}\smallskip
 \begingroup\tiny
 \ifdef{\conselho}{\conselho}{\relax}
 \par\endgroup\bigskip
@@ -41,7 +42,7 @@ Portuguesa de 1990, em vigor no Brasil desde 2009.}\\
 %
 \textsc{editora hedra ltda.}\\
 R.~Fradique Coutinho, 1139 (subsolo)\\
-05416--011 São Paulo \textsc{sp} Brasil\\
+05416--011, São Paulo–\textsc{sp}, Brasil\\
 Telefone/Fax +55 11 3097 8304\\\smallskip
 editora@hedra.com.br\\
 www.hedra.com.br\\
@@ -53,6 +54,8 @@ Foi feito o depósito legal.\\\endgroup
 \titulagem
 
 {\Large \autor \par\vspace{1.5ex}}
+\ifdef{\apresentador}{{\small {\apresentador} (\textit{apresentação})} \par}{}
+\ifdef{\prefacio}{{\small {\prefacio} (\textit{prefácio})} \par}{}
 \ifdef{\organizador}{{\small {\organizador} (\textit{organização})} \par}{}
 \ifdef{\introdutor}{{\small {\introdutor} (\textit{introdução})} \par}{}
 \ifdef{\tradutor}{{\small {\tradutor} (\textit{tradução})}\par}{}\vspace{1.5cm}

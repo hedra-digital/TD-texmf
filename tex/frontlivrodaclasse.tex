@@ -1,0 +1,99 @@
+\AtBeginDocument{%
+\begingroup\pagestyle{empty}\raggedleft\parindent0pt
+\titulagem{}
+\vfill
+\clearpage
+%% Créditos ------------------------------------------------------
+\raggedright
+\linha{Copyright}{\copyrightlivro}
+\linha{Organização©}{\copyrightorganizacao}
+\linha{Introdução©}{\copyrightintroducao}
+\linha{Ilustração©}{\copyrightilustracao}
+\linha{Agradecimentos}{\agradecimentos}
+\linha{Indicação}{\indicacao}
+\linha{Edição}{\edicao}
+\linha{Coedição}{\coedicao}
+\linha{Assistência editorial}{\assistencia}
+\linha{Revisão}{\revisao}
+\linha{Preparação}{\preparacao}
+\linha{Capa}{\capa}
+\linha{Imagem da capa}{\imagemcapa}
+\linha{ISBN}{\ISBN}
+\ifdef{\diretor}{\listax{Direção}{\diretor}}{}
+\linha{Coordenação}{\coordenador}
+\bigskip
+\ifdef{\imagemficha}{\IfFileExists{\imagemficha}{\includegraphics[width=.7\textwidth]{\imagemficha}\par}}{}
+
+\begingroup\tiny
+\ifdef{\conselho}{\conselho}{\relax}
+\par\endgroup\bigskip
+
+\begingroup \tiny
+
+%\textit{Grafia atualizada segundo o Acordo Ortográfico da Língua\\
+%Portuguesa de 1990, em vigor no Brasil desde 2009.}\\
+
+
+\vfill
+%\textit{Direitos reservados em l\'ingua\\ portuguesa somente para o Brasil}\\\medskip
+
+%
+\ifdef{\instituicao{}}{\textsc{\instituicao}\par}{}
+\ifdef{\logradouro}{\logradouro}{}\ifdef{\numero}{,\,\numero\par}{}
+\ifdef{\cep}{\cep\ }{} \ifdef{\cidadeinstituicao}{\cidadeinstituicao\ }{} \ifdef{\estado\ }{\estado}{} \par\smallskip
+% Faltou Telefone, email, site, facebook, twitter, instagram
+\ifdef{\telefone}{\telefone\par}{}
+\ifdef{\site}{\site\par}{}
+\ifdef{\email}{\email\par}{}
+\ifdef{\facebook}{\facebook\par}{}
+\ifdef{\twitter}{\twitter\par}{}
+\ifdef{\instagram}{\instagram\par}{}
+\endgroup
+\pagebreak\raggedleft
+%% Front ---------------------------------------------------------
+% Titulo
+\titulagem
+
+{\Large \autor \par\vspace{1.5ex}}
+\ifdef{\organizador}{{\small {\organizador} (\textit{organização})} \par}{}
+\ifdef{\turma}{{\small {\turma}}\par}{}
+\vspace{1.5cm}
+
+
+%logos
+\vfill
+
+
+\ifdef{\cidadeinstituicao}{\hspace{2cm}\cidadeinstituicao\_}{}\the\year
+\ifdef{\logo}{\IfFileExists{\logo}{\hfill\includegraphics[width=3cm]{\logo}\par}}{}
+\par\clearpage\endgroup
+
+% Resumo -------------------------------------------------------
+\begingroup \footnotesize \parindent0pt \parskip 5pt \thispagestyle{empty} \vspace*{.25\textheight}\mbox{} \vfill
+
+{\baselineskip=.87\baselineskip  \defineshorthand{"-}{\discretionary{-}{-}{-}}
+\ifdef{\resumo}{\resumo\par}{}
+\ifdef{\sobreobra}{\sobreobra}{}
+\ifdef{\sobreautor}{\mbox{}\vspace{4pt}\newline\sobreautor}{}
+\ifdef{\sobretradutor}{\newline\sobretradutor}{\relax}
+\ifdef{\sobreorganizador}{\vspace{4pt}\newline\sobreorganizador}{\relax}\par}
+\thispagestyle{empty} \endgroup
+\ifdefvoid{\sobreautor}{}{\pagebreak\ifodd\thepage\paginabranca\fi}
+% Sumário -------------------------------------------------------
+
+\sumario{}
+
+%\part[{{\def\break{}\titulo}}]{\titulo}
+} % fim do AtBeginDocument
+
+% Finais -------------------------------------------------------
+\AtEndDocument{%
+  \publicidade
+
+\pagebreak\ifodd\thepage\paginabranca\fi
+
+
+\mbox{}\vfill\small \thispagestyle{empty}
+\noindent Adverte-se aos curiosos que se imprimiu este livro \ifdef{\grafica}{na gráfica \grafica}{em nossas oficinas}, 
+em \today \ifdef{\papelmiolo}{em papel \papelmiolo}, em tipologia \tipopadrao{}, com diversos sofwares livres, 
+entre eles, Lua\LaTeX, git \& ruby.\par \begin{center}\normalsize\end{center}}

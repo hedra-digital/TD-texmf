@@ -1,0 +1,24 @@
+
+	\RequirePackage{hyperref}
+	\definecolor{hedra}{rgb}{.1,.1,.6}
+	\hypersetup{colorlinks=true,linkcolor=hedra}
+	\makeatletter
+	\def\@part[#1]#2{%
+	    \ifnum \c@secnumdepth >-2\relax
+	      \refstepcounter{part}%
+	      \addcontentsline{toc}{part}{\thepart\hspace{1em}#1}%
+	    \else
+	      \addcontentsline{toc}{part}{#1}%
+	    \fi
+	    \markboth{}{}%
+	    {\centering
+	     \interlinepenalty \@M
+	     \normalfont
+	     \ifnum \c@secnumdepth >-2\relax
+	       \huge\partname\nobreakspace\thepart
+	       \par
+	       \vskip 20\p@
+	     \fi
+	     \huge \scshape #2\par}%
+	    \@endpart}
+	\makeatother
